@@ -14,7 +14,7 @@ export const PROFILE = {
     'Passionate Full Stack Developer with experience building modern web applications using React.js, Node.js, Express.js and MongoDB. Currently pursuing B.Tech in Artificial Intelligence & Machine Learning while developing real-world projects and continuously improving development skills.',
   email: 'deepakarya20112000@gmail.com',
   location: 'Lucknow, Uttar Pradesh, India',
-  resumeUrl: '/Resume/Deepak-arya.pdf',
+  resumeUrl: '/Resume/deepak-arya.pdf',
   avatar: '/Profile/profile.webp',
   logo: '/Navbar logo/navbar logo.webp',
 }
