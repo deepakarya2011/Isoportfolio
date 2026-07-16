@@ -212,7 +212,7 @@ export const GITHUB_STATS = [
 
 // EmailJS configuration — replace with your own credentials from https://www.emailjs.com
 export const EMAILJS_CONFIG = {
-  serviceId: 'service_et4yj5k',   // Replace with your EmailJS Service ID
-  templateId: 'template_tn335v9', // Replace with your EmailJS Template ID
+  serviceId: 'service_6px5ygm',   // Replace with your EmailJS Service ID
+  templateId: 'template_ymvr4h4', // Replace with your EmailJS Template ID
   publicKey: 'Qm4V52W9QS9CWq8TP',   // Replace with your EmailJS Public Key
 }
