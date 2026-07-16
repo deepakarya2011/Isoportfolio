@@ -296,7 +296,7 @@ export default function Contact() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="contact-form-grid">
               <input
                 type="text"
-                name="from_name"
+                name="name"
                 placeholder="Your Name"
                 required
                 style={{
@@ -314,7 +314,7 @@ export default function Contact() {
               />
               <input
                 type="email"
-                name="from_email"
+                name="email"
                 placeholder="Your Email"
                 required
                 style={{
@@ -333,7 +333,7 @@ export default function Contact() {
             </div>
             <input
               type="text"
-              name="subject"
+              name="title"
               placeholder="Subject"
               required
               style={{
