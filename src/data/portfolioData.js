@@ -209,3 +209,10 @@ export const GITHUB_STATS = [
   { label: 'Contributions', value: 300, suffix: '+' },
   { label: 'Current Streak', value: 15, suffix: ' days' },
 ]
+
+// EmailJS configuration — replace with your own credentials from https://www.emailjs.com
+export const EMAILJS_CONFIG = {
+  serviceId: 'service_et4yj5k',   // Replace with your EmailJS Service ID
+  templateId: 'template_tn335v9', // Replace with your EmailJS Template ID
+  publicKey: 'Qm4V52W9QS9CWq8TP',   // Replace with your EmailJS Public Key
+}

@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { PROFILE, SOCIAL_LINKS } from '../data/portfolioData'
+import emailjs from '@emailjs/browser'
+import { PROFILE, SOCIAL_LINKS, EMAILJS_CONFIG } from '../data/portfolioData'
 import { FiGithub, FiLinkedin, FiGlobe, FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
 import { HiPaperAirplane } from 'react-icons/hi'
 
@@ -15,11 +16,33 @@ const fadeUp = {
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const formRef = useRef()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setSent(true)
-    setTimeout(() => setSent(false), 4000)
+    setSending(true)
+
+    emailjs
+      .sendForm(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        formRef.current,
+        EMAILJS_CONFIG.publicKey
+      )
+      .then(
+        () => {
+          setSent(true)
+          setSending(false)
+          e.target.reset()
+          setTimeout(() => setSent(false), 4000)
+        },
+        (error) => {
+          console.error('EmailJS error:', error)
+          setSending(false)
+          alert('Failed to send message. Please try again later.')
+        }
+      )
   }
 
   return (
@@ -252,6 +275,7 @@ export default function Contact() {
 
           {/* Right — Contact form */}
           <motion.form
+            ref={formRef}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
@@ -272,6 +296,7 @@ export default function Contact() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="contact-form-grid">
               <input
                 type="text"
+                name="from_name"
                 placeholder="Your Name"
                 required
                 style={{
@@ -289,6 +314,7 @@ export default function Contact() {
               />
               <input
                 type="email"
+                name="from_email"
                 placeholder="Your Email"
                 required
                 style={{
@@ -307,6 +333,7 @@ export default function Contact() {
             </div>
             <input
               type="text"
+              name="subject"
               placeholder="Subject"
               required
               style={{
@@ -323,6 +350,7 @@ export default function Contact() {
               onBlur={(e) => (e.target.style.borderColor = 'var(--glass-border)')}
             />
             <textarea
+              name="message"
               placeholder="Your Message"
               rows={5}
               required
@@ -343,6 +371,7 @@ export default function Contact() {
 
             <motion.button
               type="submit"
+              disabled={sending}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               style={{
@@ -357,13 +386,14 @@ export default function Contact() {
                 fontWeight: 600,
                 fontSize: 15,
                 border: 'none',
-                cursor: 'pointer',
+                cursor: sending ? 'not-allowed' : 'pointer',
+                opacity: sending ? 0.7 : 1,
                 boxShadow: 'var(--shadow-glow-primary)',
                 transition: '0.2s',
               }}
             >
-              {sent ? 'Message Sent! ✓' : 'Send Message'}
-              {!sent && <HiPaperAirplane />}
+              {sending ? 'Sending...' : sent ? 'Message Sent! ✓' : 'Send Message'}
+              {!sending && !sent && <HiPaperAirplane />}
             </motion.button>
           </motion.form>
         </div>
