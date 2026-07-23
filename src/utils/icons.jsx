@@ -24,6 +24,14 @@ import {
   FaLayerGroup,
   FaUsers,
   FaNetworkWired,
+  FaBriefcase,
+  FaCalendar,
+  FaUserTie,
+  FaCode,
+  FaCircleCheck,
+  FaStar,
+  FaArrowRight,
+  FaClock,
 } from 'react-icons/fa6'
 
 // Maps a data-driven icon key to its rendered react-icons component.

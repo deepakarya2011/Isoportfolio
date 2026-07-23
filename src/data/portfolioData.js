@@ -32,6 +32,7 @@ export const NAV_LINKS = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Education', href: '#education' },
   { label: 'Certificates', href: '#certificates' },
   { label: 'GitHub', href: '#github' },
@@ -216,3 +217,65 @@ export const EMAILJS_CONFIG = {
   templateId: 'template_ymvr4h4', // Replace with your EmailJS Template ID
   publicKey: 'Qm4V52W9QS9CWq8TP',   // Replace with your EmailJS Public Key
 }
+
+// ─── Experience Data ───────────────────────────────────────────
+export const EXPERIENCE = [
+  {
+    id: 'mr-rishi-cms',
+    role: 'Freelance Full Stack Developer',
+    company: 'Mr.Rishi (YouTube Creator)',
+    duration: 'May 2026 – June 2026',
+    employmentType: 'Freelance / Contract',
+    status: 'Completed',
+    statusIcon: '✔',
+    description:
+      'Worked directly with YouTube creator Mr.Rishi to design and develop a custom MERN Stack Content Management System (CMS) that streamlines the complete YouTube content production workflow. The platform helps manage video ideas, script writing, production progress, SEO planning, scheduling, and publishing from a single dashboard.',
+    responsibilities: [
+      'Gathered client requirements and converted them into a production-ready web application.',
+      'Designed and developed the complete frontend using React.js with a modern responsive UI.',
+      'Built scalable backend APIs using Node.js and Express.js.',
+      'Integrated MongoDB for secure and efficient data storage.',
+      'Implemented JWT Authentication with protected routes.',
+      'Developed a powerful Script Editor for writing and managing YouTube scripts.',
+      'Created a Content Planner to organize upcoming videos.',
+      'Built an end-to-end Video Workflow system: Idea → Script → Recording → Editing → SEO → Scheduled → Published',
+      'Added SEO Management including Title, Description, Tags, and Keywords.',
+      'Implemented Search, Filters, Labels, Categories, and Status Tracking.',
+      'Designed a fully responsive interface supporting Desktop, Tablet, and Mobile devices.',
+      'Added Dark Mode with smooth animations and modern user experience.',
+    ],
+    techStack: [
+      'React.js',
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'JWT Authentication',
+      'REST APIs',
+      'HTML5',
+      'CSS3',
+      'JavaScript',
+      'Git',
+      'GitHub',
+    ],
+    highlights: [
+      'Real Client Project',
+      'MERN Stack',
+      'Full Stack Development',
+      'Responsive Design',
+      'Authentication System',
+      'Content Management System',
+      'REST APIs',
+      'SEO Dashboard',
+      'Script Editor',
+      'Content Planner',
+      'Workflow Management',
+    ],
+    metrics: [
+      { label: 'Real Client', value: 1, suffix: '' },
+      { label: 'Days Development', value: 26, suffix: '' },
+      { label: 'Major Features', value: 10, suffix: '+' },
+      { label: 'Responsive', value: 100, suffix: '%' },
+      { label: 'Full Stack MERN', value: 1, suffix: '' },
+    ],
+  },
+]

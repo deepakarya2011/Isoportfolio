@@ -6,6 +6,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
+import Experience from './components/Experience'
 import Education from './components/Education'
 import Certificates from './components/Certificates'
 import GitHubStats from './components/GitHubStats'
@@ -50,6 +51,8 @@ function App() {
             <SectionDivider accent="primary" />
             <Projects />
             <SectionDivider accent="accent" />
+            <Experience />
+            <SectionDivider accent="primary" />
             <Education />
             <SectionDivider accent="purple" />
             <Certificates />
