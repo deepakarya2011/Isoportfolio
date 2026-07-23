@@ -10,6 +10,7 @@ import {
   FaStar,
   FaArrowRight,
   FaClock,
+  FaCode,
 } from 'react-icons/fa6'
 
 const fadeUp = {
