@@ -22,7 +22,7 @@ export const PROFILE = {
 export const SOCIAL_LINKS = {
   github: 'https://github.com/deepakarya2011',
   linkedin: 'https://www.linkedin.com/in/deepak-arya-860881276/',
-  portfolio: 'https://deepakarya.dev',
+  portfolio: 'https://aboutarya.vercel.app/',
 }
 
 export const GITHUB_USERNAME = 'deepakarya2011'
@@ -115,7 +115,7 @@ export const PROJECTS = [
       'A full-stack job portal platform where users can browse job listings, search jobs by location and role, and view detailed job information. Backend APIs developed using Node.js and Express with MongoDB integration.',
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
     github: 'https://github.com/deepakarya2011',
-    demo: 'https://career-connect-frontend-liard.vercel.app/',
+    demo: 'https://careerconnectfrontend.vercel.app/',
     accent: '#6366F1',
     thumbnail: '/Project thumbnails/CareerConnect Job Portal.webp',
   },
