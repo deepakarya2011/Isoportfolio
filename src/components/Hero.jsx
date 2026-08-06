@@ -46,10 +46,10 @@ export default function Hero() {
     <section
       id="home"
       className="section"
-      style={{ minHeight: '100svh', display: 'flex', alignItems: 'center', paddingTop: 'var(--nav-h)', paddingBottom: 0, position: 'relative' }}
+      style={{ minHeight: '100svh', display: 'flex', alignItems: 'center', paddingTop: 'var(--nav-h)', paddingBottom: 'var(--nav-h)', position: 'relative' }}
     >
       <div className="container" style={{ width: '100%', position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }} className="hero-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', marginLeft: 50 }} className="hero-grid">
 
           {/* LEFT */}
           <div>
@@ -222,7 +222,10 @@ export default function Hero() {
 
       <style>{`
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        @media (max-width: 820px) { .hero-tech-icon { display: none !important; } }
+        @media (max-width: 820px) {
+          .hero-grid { margin-left: 0 !important; }
+          .hero-tech-icon { display: none !important; }
+        }
       `}</style>
     </section>
   )
