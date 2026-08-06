@@ -51,7 +51,7 @@ export default function Skills() {
             >
               <GlassCard
                 glow={CATEGORY_GLOWS[group.category]}
-                blur={32}
+                blur={6}
                 style={{ padding: '28px 24px', height: '100%' }}
               >
                 {/* Category header */}
@@ -74,15 +74,15 @@ export default function Skills() {
                     <div key={skill.name} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                       {/* Glass icon bubble */}
                       <div style={{ position: 'relative', width: 32, height: 32, borderRadius: 10, isolation: 'isolate', overflow: 'hidden', flexShrink: 0 }}>
-                        <div style={{ position: 'absolute', inset: 0, backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderRadius: 10, pointerEvents: 'none' }} />
-                        <div style={{ position: 'absolute', inset: 0, background: `${CATEGORY_GLOWS[group.category]}14`, borderRadius: 10, pointerEvents: 'none' }} />
+                        <div style={{ position: 'absolute', inset: 0, backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', borderRadius: 10, pointerEvents: 'none' }} />
+                        <div style={{ position: 'absolute', inset: 0, background: `${CATEGORY_GLOWS[group.category]}08`, borderRadius: 10, pointerEvents: 'none' }} />
                         <div style={{ position: 'absolute', inset: 0, border: '1px solid transparent', backgroundImage: `linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.04) 100%)`, backgroundOrigin: 'border-box', WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'destination-out', maskComposite: 'exclude', borderRadius: 10, pointerEvents: 'none' }} />
                         <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.50) 50%, transparent)', pointerEvents: 'none' }} />
-                        <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, color: 'var(--color-text-dim)' }}>
+                        <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, color: 'var(--color-text)', textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}>
                           <TechIcon name={skill.icon} />
                         </div>
                       </div>
-                      <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-text-dim)' }}>
+                      <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text)', textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}>
                         {skill.name}
                       </span>
                     </div>

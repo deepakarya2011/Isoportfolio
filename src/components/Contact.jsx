@@ -18,17 +18,19 @@ const inputStyle = {
   width: '100%',
   padding: '14px 18px',
   borderRadius: 14,
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.12)',
-  backdropFilter: 'blur(12px)',
-  WebkitBackdropFilter: 'blur(12px)',
+  background: 'rgba(255,255,255,0.02)',
+  border: '1px solid rgba(255,255,255,0.10)',
+  backdropFilter: 'blur(6px)',
+  WebkitBackdropFilter: 'blur(6px)',
   fontSize: 14,
   color: 'var(--color-text)',
+  caretColor: 'var(--color-text)',
   outline: 'none',
   boxSizing: 'border-box',
   boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)',
   transition: 'border-color 0.25s, box-shadow 0.25s',
   fontFamily: 'var(--font-sans)',
+  textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
 }
 
 export default function Contact() {
@@ -76,7 +78,7 @@ export default function Contact() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }} variants={fadeUp} custom={0}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {/* Email card */}
-              <LiquidGlass radius={18} blur={28} tint="rgba(255,255,255,0.05)" tintHover="rgba(255,255,255,0.09)" glow="#6366f1" intensity={0.9} style={{ padding: '18px 20px' }}>
+              <LiquidGlass radius={18} blur={6} tint="rgba(255,255,255,0.02)" tintHover="rgba(255,255,255,0.01)" glow="#6366f1" intensity={0.9} style={{ padding: '18px 20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                   <div style={{ width: 44, height: 44, borderRadius: 14, background: 'rgba(99,102,241,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: 'var(--color-primary-soft)', flexShrink: 0, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)' }}>
                     <FiMail />
@@ -91,7 +93,7 @@ export default function Contact() {
               </LiquidGlass>
 
               {/* Location card */}
-              <LiquidGlass radius={18} blur={28} tint="rgba(255,255,255,0.05)" tintHover="rgba(255,255,255,0.09)" glow="#a855f7" intensity={0.9} style={{ padding: '18px 20px' }}>
+              <LiquidGlass radius={18} blur={6} tint="rgba(255,255,255,0.02)" tintHover="rgba(255,255,255,0.01)" glow="#a855f7" intensity={0.9} style={{ padding: '18px 20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                   <div style={{ width: 44, height: 44, borderRadius: 14, background: 'rgba(168,85,247,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: 'var(--color-purple)', flexShrink: 0, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)' }}>
                     <FiMapPin />
@@ -116,12 +118,12 @@ export default function Contact() {
                   as="a"
                   href={href}
                   radius={14}
-                  blur={20}
-                  tint="rgba(255,255,255,0.06)"
-                  tintHover="rgba(255,255,255,0.12)"
+                  blur={6}
+                  tint="rgba(255,255,255,0.02)"
+                  tintHover="rgba(255,255,255,0.01)"
                   glow={glow}
                   intensity={1}
-                  style={{ width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-dim)' }}
+                  style={{ width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text)', textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}
                 >
                   {icon}
                 </LiquidGlass>
@@ -131,12 +133,12 @@ export default function Contact() {
 
           {/* Right — form */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }} variants={fadeUp} custom={1}>
-            <GlassCard glow="#06b6d4" blur={32} style={{ padding: '36px 32px' }}>
-              <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <GlassCard glow="#06b6d4" blur={6} style={{ padding: '36px 32px' }}>
+              <form ref={formRef} onSubmit={handleSubmit} className="contact-form" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }} className="contact-form-grid">
                   <input type="text" name="name" placeholder="Your Name" required style={inputStyle}
                     onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
-                    onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
+                    onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.10)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
                   />
                   <input type="email" name="email" placeholder="Your Email" required style={inputStyle}
                     onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
@@ -145,23 +147,28 @@ export default function Contact() {
                 </div>
                 <input type="text" name="title" placeholder="Subject" required style={inputStyle}
                   onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
-                  onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
+                  onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.10)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
                 />
                 <textarea name="message" placeholder="Your Message" rows={5} required
                   style={{ ...inputStyle, resize: 'vertical' }}
                   onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
-                  onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
+                  onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.10)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
                 />
                 <GlassButton
                   as="button"
                   type="submit"
                   disabled={sending}
-                  variant="primary"
+                  variant="ghost"
                   style={{
                     width: '100%', padding: '14px 32px',
-                    fontSize: 15, color: '#fff',
+                    fontSize: 15, color: 'var(--color-text)',
                     opacity: sending ? 0.7 : 1,
                     cursor: sending ? 'not-allowed' : 'pointer',
+                    background: 'rgba(255, 255, 255, 0.16)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    backdropFilter: 'blur(6px)',
+                    WebkitBackdropFilter: 'blur(6px)',
+                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10), 0 4px 20px rgba(0,0,0,0.15)',
                   }}
                 >
                   {sending ? 'Sending…' : sent ? 'Sent! ✓' : (
@@ -185,6 +192,17 @@ export default function Contact() {
         }
         @media (max-width: 640px) {
           .contact-form-grid { grid-template-columns: 1fr !important; }
+        }
+        /* Form inputs — placeholder text white in dark, black in light */
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+          color: var(--color-text);
+          opacity: 0.75;
+        }
+        [data-theme="light"] .contact-form input::placeholder,
+        [data-theme="light"] .contact-form textarea::placeholder {
+          color: #0b0f19;
+          opacity: 0.6;
         }
       `}</style>
     </section>

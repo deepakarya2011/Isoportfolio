@@ -19,9 +19,9 @@
   --color-border-strong: rgba(255, 255, 255, 0.15);
 
   /* True glass values */
-  --glass-bg: rgba(255, 255, 255, 0.055);
-  --glass-bg-strong: rgba(255, 255, 255, 0.09);
-  --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-bg-strong: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
   --glass-highlight: rgba(255, 255, 255, 0.22);
   --glass-shine: rgba(255, 255, 255, 0.18);
   --glass-reflection: rgba(255, 255, 255, 0.08);
@@ -67,9 +67,9 @@
   --color-border: rgba(11, 15, 25, 0.10);
   --color-border-strong: rgba(11, 15, 25, 0.18);
 
-  --glass-bg: rgba(255, 255, 255, 0.68);
-  --glass-bg-strong: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(11, 15, 25, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.30);
+  --glass-bg-strong: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(11, 15, 25, 0.10);
   --glass-highlight: rgba(255, 255, 255, 0.90);
   --glass-shine: rgba(255, 255, 255, 0.70);
   --glass-reflection: rgba(255, 255, 255, 0.50);
@@ -176,8 +176,8 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .glassPanel {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 /* True Liquid Glass Card — used by Education, Certificates, Experience */
@@ -187,10 +187,10 @@ input, textarea, select { font-family: inherit; color: inherit; }
   overflow: hidden;
   border-radius: var(--radius-lg);
   /* L1: backdrop */
-  backdrop-filter: blur(36px) saturate(180%);
-  -webkit-backdrop-filter: blur(36px) saturate(180%);
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(6px) saturate(180%);
   /* L2: tint */
-  background: rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.02);
   /* L8: shadow */
   box-shadow: 0 16px 48px rgba(0,0,0,0.32), 0 4px 12px rgba(0,0,0,0.18);
   transition: transform 0.4s var(--ease-premium), box-shadow 0.4s var(--ease-premium);
@@ -250,9 +250,9 @@ input, textarea, select { font-family: inherit; color: inherit; }
   isolation: isolate;
   overflow: hidden;
   border-radius: var(--radius-pill);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(6px) saturate(180%);
+  background: rgba(255,255,255,0.02);
   border: 1px solid transparent;
   background-image: linear-gradient(rgba(255,255,255,0.07), rgba(255,255,255,0.07)),
     linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.14) 100%);
@@ -403,9 +403,9 @@ body, #root { overflow-x: hidden; width: 100%; max-width: 100vw; }
 
 /* ── Light mode glass adjustments ── */
 [data-theme="light"] .liquidGlassCard {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(32px) saturate(160%);
-  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  background: rgba(255, 255, 255, 0.30);
+  backdrop-filter: blur(6px) saturate(160%);
+  -webkit-backdrop-filter: blur(6px) saturate(160%);
   box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
 }
 

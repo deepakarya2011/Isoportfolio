@@ -25,9 +25,9 @@ export function LiquidGlass({
   style = {},
   contentStyle = {},
   radius = 28,
-  blur = 40,
-  tint = 'rgba(255,255,255,0.06)',
-  tintHover = 'rgba(255,255,255,0.10)',
+  blur = 6,
+  tint = 'rgba(255,255,255,0.02)',
+  tintHover = 'rgba(255,255,255,0.01)',
   glow = null,           // accent color for ambient glow e.g. '#6366f1'
   intensity = 1,         // 0–2, scales all effects
   as = 'div',
@@ -295,23 +295,23 @@ export const GlassButton = memo(function GlassButton({
 }) {
   const variants = {
     ghost: {
-      tint: 'rgba(255,255,255,0.07)',
-      tintHover: 'rgba(255,255,255,0.13)',
+      tint: 'rgba(255,255,255,0.02)',
+      tintHover: 'rgba(255,255,255,0.01)',
       glow: null,
     },
     primary: {
-      tint: 'rgba(99,102,241,0.18)',
-      tintHover: 'rgba(99,102,241,0.28)',
+      tint: 'rgba(99,102,241,0.05)',
+      tintHover: 'rgba(99,102,241,0.08)',
       glow: '#6366f1',
     },
     accent: {
-      tint: 'rgba(6,182,212,0.15)',
-      tintHover: 'rgba(6,182,212,0.25)',
+      tint: 'rgba(6,182,212,0.04)',
+      tintHover: 'rgba(6,182,212,0.07)',
       glow: '#06b6d4',
     },
     purple: {
-      tint: 'rgba(168,85,247,0.15)',
-      tintHover: 'rgba(168,85,247,0.25)',
+      tint: 'rgba(168,85,247,0.04)',
+      tintHover: 'rgba(168,85,247,0.07)',
       glow: '#a855f7',
     },
   }
@@ -324,7 +324,7 @@ export const GlassButton = memo(function GlassButton({
       href={href}
       onClick={onClick}
       radius={999}
-      blur={28}
+      blur={6}
       tint={v.tint}
       tintHover={v.tintHover}
       glow={v.glow}
@@ -350,6 +350,7 @@ export const GlassButton = memo(function GlassButton({
         fontWeight: 600,
         fontFamily: 'var(--font-sans)',
         lineHeight: 1,
+        textShadow: '0 1px 3px rgba(0,0,0,0.35), 0 0 12px rgba(0,0,0,0.20)',
         minHeight: 44,
         minWidth: 44,
         ...style,
@@ -364,13 +365,13 @@ export const GlassButton = memo(function GlassButton({
 /**
  * GlassCard — Primary content card with full 8-layer glass
  */
-export const GlassCard = memo(function GlassCard({ children, style = {}, radius = 28, glow = null, blur = 36, ...rest }) {
+export const GlassCard = memo(function GlassCard({ children, style = {}, radius = 28, glow = null, blur = 6, ...rest }) {
   return (
     <LiquidGlass
       radius={radius}
       blur={blur}
-      tint="rgba(255,255,255,0.055)"
-      tintHover="rgba(255,255,255,0.09)"
+      tint="rgba(255,255,255,0.02)"
+      tintHover="rgba(255,255,255,0.01)"
       glow={glow}
       intensity={1}
       style={style}
@@ -392,14 +393,15 @@ export const GlassTag = memo(function GlassTag({ children, color = '#6366f1', st
         alignItems: 'center',
         padding: '4px 12px',
         borderRadius: 999,
-        background: `${color}18`,
-        border: `1px solid ${color}35`,
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
+        background: `${color}08`,
+        border: `1px solid ${color}20`,
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
         fontSize: 12,
-        fontWeight: 500,
-        color: 'var(--color-text-dim)',
-        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.12), 0 2px 8px rgba(0,0,0,0.15)`,
+        fontWeight: 600,
+        color: 'var(--color-text)',
+        textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
+        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.10), 0 2px 8px rgba(0,0,0,0.15)`,
         ...style,
       }}
     >

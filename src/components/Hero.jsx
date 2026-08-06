@@ -69,8 +69,9 @@ export default function Hero() {
             <div
               style={{
                 fontSize: 'clamp(16px, 2.2vw, 22px)', fontWeight: 500,
-                fontFamily: 'var(--font-heading)', color: 'var(--color-text-dim)',
+                fontFamily: 'var(--font-heading)', color: 'var(--color-text)',
                 marginBottom: 24, minHeight: 36, display: 'flex', alignItems: 'center', gap: 8,
+                textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
               }}
             >
               <span style={{
@@ -82,7 +83,7 @@ export default function Hero() {
             </div>
 
             {/* Description */}
-            <p style={{ fontSize: 'clamp(14px, 1.1vw, 16px)', lineHeight: 1.75, color: 'var(--color-text-dim)', marginBottom: 36 }}>
+            <p style={{ fontSize: 'clamp(14px, 1.1vw, 16px)', lineHeight: 1.75, color: 'var(--color-text)', marginBottom: 36, textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}>
               {PROFILE.description}
             </p>
 
@@ -165,9 +166,9 @@ export default function Hero() {
               {/* Glass-framed profile image */}
               <LiquidGlass
                 radius={999}
-                blur={0}
-                tint="rgba(255,255,255,0.0)"
-                tintHover="rgba(255,255,255,0.04)"
+                blur={6}
+                tint="rgba(255,255,255,0.02)"
+                tintHover="rgba(255,255,255,0.01)"
                 intensity={1.4}
                 style={{ width: '100%', height: '100%', borderRadius: '50%' }}
               >
@@ -203,12 +204,12 @@ export default function Hero() {
                 >
                   {/* Glass bubble */}
                   <div style={{ position: 'relative', width: 40, height: 40, borderRadius: 14, isolation: 'isolate', overflow: 'hidden' }}>
-                    <div style={{ position: 'absolute', inset: 0, backdropFilter: 'blur(20px) saturate(180%)', WebkitBackdropFilter: 'blur(20px) saturate(180%)', borderRadius: 14, pointerEvents: 'none' }} />
-                    <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.08)', borderRadius: 14, pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', inset: 0, backdropFilter: 'blur(6px) saturate(180%)', WebkitBackdropFilter: 'blur(6px) saturate(180%)', borderRadius: 14, pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.02)', borderRadius: 14, pointerEvents: 'none' }} />
                     <div style={{ position: 'absolute', inset: 0, border: '1px solid transparent', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.15) 100%)', backgroundOrigin: 'border-box', WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'destination-out', maskComposite: 'exclude', borderRadius: 14, pointerEvents: 'none' }} />
                     <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.65) 50%, transparent)', pointerEvents: 'none' }} />
                     <div style={{ position: 'absolute', inset: 0, boxShadow: '0 8px 24px rgba(0,0,0,0.30)', borderRadius: 14, pointerEvents: 'none' }} />
-                    <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: 'var(--color-text-dim)' }}>
+                    <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: 'var(--color-text)', textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}>
                       <TechIcon name={name} />
                     </div>
                   </div>

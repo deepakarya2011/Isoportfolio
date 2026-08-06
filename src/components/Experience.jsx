@@ -85,7 +85,7 @@ function MetricItem({ label, value, suffix }) {
         textAlign: 'center',
         padding: '16px 12px',
         borderRadius: 'var(--radius-md)',
-        background: 'rgba(255,255,255,0.03)',
+        background: 'rgba(255,255,255,0.02)',
         border: '1px solid var(--glass-border)',
         transition: 'all 0.3s var(--ease-premium)',
       }}
@@ -107,11 +107,12 @@ function MetricItem({ label, value, suffix }) {
       <div
         style={{
           fontSize: 12,
-          color: 'var(--color-text-dimmer)',
-          fontWeight: 500,
+          color: 'var(--color-text)',
+          fontWeight: 600,
           marginTop: 4,
           textTransform: 'uppercase',
           letterSpacing: 0.5,
+          textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
         }}
       >
         {label}
@@ -318,15 +319,16 @@ export default function Experience() {
                     flexWrap: 'wrap',
                     gap: 20,
                     fontSize: 13,
-                    color: 'var(--color-text-dim)',
+                    color: 'var(--color-text)',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <FaCalendar size={12} style={{ color: 'var(--color-text-dimmer)' }} />
+                    <FaCalendar size={12} style={{ color: 'var(--color-text)' }} />
                     {exp.duration}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <FaClock size={12} style={{ color: 'var(--color-text-dimmer)' }} />
+                    <FaClock size={12} style={{ color: 'var(--color-text)' }} />
                     {exp.employmentType}
                   </div>
                 </div>
@@ -339,8 +341,9 @@ export default function Experience() {
                   style={{
                     fontSize: 14.5,
                     lineHeight: 1.8,
-                    color: 'var(--color-text-dim)',
+                    color: 'var(--color-text)',
                     marginBottom: 28,
+                    textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                   }}
                 >
                   {exp.description}
@@ -383,9 +386,10 @@ export default function Experience() {
                           background: 'rgba(255,255,255,0.02)',
                           border: '1px solid var(--glass-border)',
                           fontSize: 13.5,
-                          color: 'var(--color-text-dim)',
+                          color: 'var(--color-text)',
                           lineHeight: 1.6,
                           transition: 'all 0.3s var(--ease-premium)',
+                          textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                         }}
                         className="resp-item"
                       >
@@ -443,13 +447,14 @@ export default function Experience() {
                           gap: 6,
                           padding: '6px 14px',
                           borderRadius: 'var(--radius-pill)',
-                          background: 'rgba(99,102,241,0.08)',
-                          border: '1px solid rgba(99,102,241,0.2)',
+                          background: 'rgba(99,102,241,0.04)',
+                          border: '1px solid rgba(99,102,241,0.15)',
                           fontSize: 13,
-                          fontWeight: 500,
-                          color: 'var(--color-text-dim)',
+                          fontWeight: 600,
+                          color: 'var(--color-text)',
                           cursor: 'default',
                           transition: 'all 0.3s var(--ease-premium)',
+                          textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                         }}
                         className="tech-badge"
                       >
@@ -496,11 +501,12 @@ export default function Experience() {
                           gap: 6,
                           padding: '5px 12px',
                           borderRadius: 'var(--radius-pill)',
-                          background: 'rgba(6,182,212,0.08)',
-                          border: '1px solid rgba(6,182,212,0.15)',
+                          background: 'rgba(6,182,212,0.04)',
+                          border: '1px solid rgba(6,182,212,0.12)',
                           fontSize: 12.5,
-                          fontWeight: 500,
-                          color: 'var(--color-text-dim)',
+                          fontWeight: 600,
+                          color: 'var(--color-text)',
+                          textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                         }}
                       >
                         <FaCircleCheck size={11} style={{ color: '#22c55e' }} />

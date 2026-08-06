@@ -151,8 +151,9 @@ export default function Education() {
                 <p
                   style={{
                     fontSize: 14,
-                    color: 'var(--color-text-dim)',
+                    color: 'var(--color-text)',
                     marginBottom: 6,
+                    textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                   }}
                 >
                   {item.school}
@@ -160,8 +161,9 @@ export default function Education() {
                 <span
                   style={{
                     fontSize: 13,
-                    color: 'var(--color-text-dimmer)',
+                    color: 'var(--color-text)',
                     fontFamily: 'var(--font-mono)',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                   }}
                 >
                   {item.period}
@@ -169,9 +171,10 @@ export default function Education() {
                 <p
                   style={{
                     fontSize: 14,
-                    color: 'var(--color-text-dimmer)',
+                    color: 'var(--color-text)',
                     lineHeight: 1.7,
                     marginTop: 12,
+                    textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                   }}
                 >
                   {item.description}

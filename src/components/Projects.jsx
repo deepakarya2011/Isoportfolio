@@ -23,9 +23,9 @@ function ProjectCard({ project, i }) {
     >
       <LiquidGlass
         radius={26}
-        blur={36}
-        tint="rgba(255,255,255,0.055)"
-        tintHover="rgba(255,255,255,0.095)"
+        blur={6}
+        tint="rgba(255,255,255,0.02)"
+        tintHover="rgba(255,255,255,0.01)"
         glow={project.accent}
         intensity={1.1}
         style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
@@ -62,10 +62,10 @@ function ProjectCard({ project, i }) {
 
         {/* Content */}
         <div style={{ padding: '24px 24px 28px', display: 'flex', flexDirection: 'column', flex: 1, position: 'relative', zIndex: 2 }}>
-          <h3 style={{ fontSize: 17, fontWeight: 700, fontFamily: 'var(--font-heading)', marginBottom: 10, letterSpacing: '-0.01em' }}>
+          <h3 style={{ fontSize: 17, fontWeight: 700, fontFamily: 'var(--font-heading)', marginBottom: 10, letterSpacing: '-0.01em', textShadow: '0 1px 3px rgba(0,0,0,0.40), 0 0 10px rgba(0,0,0,0.25)' }}>
             {project.title}
           </h3>
-          <p style={{ fontSize: 13.5, lineHeight: 1.75, color: 'var(--color-text-dimmer)', marginBottom: 18, flex: 1 }}>
+          <p style={{ fontSize: 13.5, lineHeight: 1.75, color: 'var(--color-text)', marginBottom: 18, flex: 1, textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}>
             {project.description}
           </p>
 
@@ -85,17 +85,18 @@ function ProjectCard({ project, i }) {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 7,
                 padding: '9px 18px', borderRadius: 999,
-                background: 'rgba(255,255,255,0.07)',
-                border: '1px solid rgba(255,255,255,0.14)',
-                backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+                background: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.10)',
+                backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)',
                 color: 'var(--color-text)', fontSize: 13, fontWeight: 600,
                 textDecoration: 'none', cursor: 'pointer',
-                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 2px 8px rgba(0,0,0,0.20)',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 8px rgba(0,0,0,0.20)',
                 transition: 'background 0.2s, box-shadow 0.2s',
                 pointerEvents: 'auto',
+                textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.13)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.07)' }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.02)' }}
             >
               <FiGithub size={13} /> GitHub
             </a>
@@ -106,17 +107,18 @@ function ProjectCard({ project, i }) {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 7,
                 padding: '9px 18px', borderRadius: 999,
-                background: `${project.accent}22`,
-                border: `1px solid ${project.accent}45`,
-                backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+                background: `${project.accent}10`,
+                border: `1px solid ${project.accent}30`,
+                backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)',
                 color: '#fff', fontSize: 13, fontWeight: 600,
                 textDecoration: 'none', cursor: 'pointer',
-                boxShadow: `inset 0 1px 0 rgba(255,255,255,0.20), 0 4px 20px ${project.accent}35`,
+                boxShadow: `inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 20px ${project.accent}25`,
                 transition: 'background 0.2s, box-shadow 0.2s',
                 pointerEvents: 'auto',
+                textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = `${project.accent}38`; e.currentTarget.style.boxShadow = `inset 0 1px 0 rgba(255,255,255,0.25), 0 6px 28px ${project.accent}50` }}
-              onMouseLeave={e => { e.currentTarget.style.background = `${project.accent}22`; e.currentTarget.style.boxShadow = `inset 0 1px 0 rgba(255,255,255,0.20), 0 4px 20px ${project.accent}35` }}
+              onMouseEnter={e => { e.currentTarget.style.background = `${project.accent}20`; e.currentTarget.style.boxShadow = `inset 0 1px 0 rgba(255,255,255,0.20), 0 6px 28px ${project.accent}40` }}
+              onMouseLeave={e => { e.currentTarget.style.background = `${project.accent}10`; e.currentTarget.style.boxShadow = `inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 20px ${project.accent}25` }}
             >
               <FiExternalLink size={13} /> Live Demo
             </a>

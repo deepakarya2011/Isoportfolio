@@ -72,8 +72,8 @@ export default function Navbar() {
     document.getElementById(href.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const blur = scrolled ? 48 : 36
-  const tintOpacity = scrolled ? 0.10 : 0.06
+  const blur = scrolled ? 6 : 2
+  const tintOpacity = scrolled ? 0.02 : 0.01
 
   return (
     <nav
@@ -215,16 +215,16 @@ export default function Navbar() {
                     layoutId="nav-pill"
                     style={{
                       position: 'absolute', inset: 0, borderRadius: 10,
-                      background: 'rgba(255,255,255,0.09)',
-                      backdropFilter: 'blur(8px)',
-                      WebkitBackdropFilter: 'blur(8px)',
-                      border: '1px solid rgba(255,255,255,0.14)',
-                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.20)',
+                      background: 'rgba(255,255,255,0.02)',
+                      backdropFilter: 'blur(6px)',
+                      WebkitBackdropFilter: 'blur(6px)',
+                      border: '1px solid rgba(255,255,255,0.10)',
+                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)',
                     }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
-                <span style={{ position: 'relative', zIndex: 1 }}>{link.label}</span>
+                <span style={{ position: 'relative', zIndex: 1, textShadow: '0 1px 3px rgba(0,0,0,0.40), 0 0 10px rgba(0,0,0,0.25)' }}>{link.label}</span>
               </motion.button>
             )
           })}
@@ -255,8 +255,8 @@ export default function Navbar() {
                   }}
                 >
                   {/* Dropdown glass layers */}
-                  <div style={{ position: 'absolute', inset: 0, borderRadius: 18, backdropFilter: 'blur(40px) saturate(200%)', WebkitBackdropFilter: 'blur(40px) saturate(200%)', pointerEvents: 'none' }} />
-                  <div style={{ position: 'absolute', inset: 0, borderRadius: 18, background: 'rgba(255,255,255,0.08)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: 18, backdropFilter: 'blur(6px) saturate(200%)', WebkitBackdropFilter: 'blur(6px) saturate(200%)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: 18, background: 'rgba(255,255,255,0.02)', pointerEvents: 'none' }} />
                   <div style={{ position: 'absolute', inset: 0, border: '1px solid transparent', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.12) 100%)', backgroundOrigin: 'border-box', WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'destination-out', maskComposite: 'exclude', borderRadius: 18, pointerEvents: 'none' }} />
                   <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: 1, borderRadius: 18, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.60) 50%, transparent)', pointerEvents: 'none' }} />
                   <div style={{ position: 'absolute', inset: 0, boxShadow: '0 20px 60px rgba(0,0,0,0.45)', borderRadius: 18, pointerEvents: 'none' }} />
@@ -274,6 +274,7 @@ export default function Navbar() {
                           padding: '11px 16px', borderRadius: 10,
                           color: 'var(--color-text-dim)', fontSize: 14, fontWeight: 500,
                           textAlign: 'left', cursor: 'pointer',
+                          textShadow: '0 1px 3px rgba(0,0,0,0.40), 0 0 10px rgba(0,0,0,0.25)',
                         }}
                         whileTap={{ scale: 0.97 }}
                         onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'var(--color-text)' }}
@@ -314,8 +315,8 @@ export default function Navbar() {
               // overflow:hidden removed — was clipping mobile menu text at rounded corners
             }}
           >
-            <div style={{ position: 'absolute', inset: 0, borderRadius: 22, backdropFilter: 'blur(44px) saturate(200%)', WebkitBackdropFilter: 'blur(44px) saturate(200%)', pointerEvents: 'none' }} />
-            <div style={{ position: 'absolute', inset: 0, borderRadius: 22, background: 'rgba(255,255,255,0.07)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', inset: 0, borderRadius: 22, backdropFilter: 'blur(6px) saturate(200%)', WebkitBackdropFilter: 'blur(6px) saturate(200%)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', inset: 0, borderRadius: 22, background: 'rgba(255,255,255,0.02)', pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', inset: 0, border: '1px solid transparent', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.12) 100%)', backgroundOrigin: 'border-box', WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'destination-out', maskComposite: 'exclude', borderRadius: 22, pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', top: 0, left: '8%', right: '8%', height: 1, borderRadius: 22, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.55) 50%, transparent)', pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', inset: 0, boxShadow: '0 24px 64px rgba(0,0,0,0.50)', borderRadius: 22, pointerEvents: 'none' }} />
@@ -337,6 +338,7 @@ export default function Navbar() {
                       color: isActive ? 'var(--color-text)' : 'var(--color-text-dim)',
                       fontSize: 15, fontWeight: isActive ? 600 : 500,
                       textAlign: 'left', cursor: 'pointer', minHeight: 44,
+                      textShadow: '0 1px 3px rgba(0,0,0,0.40), 0 0 10px rgba(0,0,0,0.25)',
                     }}
                     whileTap={{ scale: 0.97 }}
                     onMouseEnter={e => {
@@ -378,18 +380,19 @@ const NavIconButton = memo(function NavIconButton({ children, onClick, ...rest }
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.92 }}
       style={{
-        background: 'rgba(255,255,255,0.07)',
-        border: '1px solid rgba(255,255,255,0.14)',
+        background: 'rgba(255,255,255,0.02)',
+        border: '1px solid rgba(255,255,255,0.10)',
         borderRadius: 11,
         padding: 9,
         color: 'var(--color-text)',
         cursor: 'pointer',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         minWidth: 38, minHeight: 38,
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 2px 8px rgba(0,0,0,0.18)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 8px rgba(0,0,0,0.18)',
         marginLeft: 4,
+        textShadow: '0 1px 3px rgba(0,0,0,0.40), 0 0 10px rgba(0,0,0,0.25)',
       }}
       {...rest}
     >

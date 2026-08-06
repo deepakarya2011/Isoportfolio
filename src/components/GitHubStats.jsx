@@ -72,9 +72,10 @@ export default function GitHubStats() {
                 style={{
                   padding: '28px 24px',
                   borderRadius: 'var(--radius-md)',
-                  background: 'var(--glass-bg)',
-                  border: '1px solid var(--glass-border)',
-                  backdropFilter: 'blur(16px)',
+                  background: 'rgba(255,255,255,0.02)',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  backdropFilter: 'blur(6px)',
+                  WebkitBackdropFilter: 'blur(6px)',
                   textAlign: 'center',
                   transition: '0.3s var(--ease-premium)',
                 }}
@@ -106,8 +107,9 @@ export default function GitHubStats() {
                 <div
                   style={{
                     fontSize: 13,
-                    color: 'var(--color-text-dim)',
-                    fontWeight: 500,
+                    color: 'var(--color-text)',
+                    fontWeight: 600,
+                    textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                   }}
                 >
                   {stat.label}

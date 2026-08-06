@@ -101,8 +101,9 @@ export default function Certificates() {
               <p
                 style={{
                   fontSize: 13,
-                  color: 'var(--color-text-dim)',
+                  color: 'var(--color-text)',
                   marginBottom: 4,
+                  textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                 }}
               >
                 {cert.issuer}
@@ -110,8 +111,9 @@ export default function Certificates() {
               <span
                 style={{
                   fontSize: 12,
-                  color: 'var(--color-text-dimmer)',
+                  color: 'var(--color-text)',
                   fontFamily: 'var(--font-mono)',
+                  textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                 }}
               >
                 {cert.year}

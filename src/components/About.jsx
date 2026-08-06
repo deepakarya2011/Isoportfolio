@@ -36,14 +36,14 @@ export default function About() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'center' }} className="about-grid">
           {/* Left */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-80px' }} variants={fadeUp} custom={0}>
-            <GlassCard glow="#06b6d4" blur={28} style={{ padding: '36px 32px' }}>
-              <p style={{ fontSize: 'clamp(15px, 1.2vw, 17px)', lineHeight: 1.85, color: 'var(--color-text-dim)', marginBottom: 20 }}>
+            <GlassCard glow="#06b6d4" blur={6} style={{ padding: '36px 32px' }}>
+              <p style={{ fontSize: 'clamp(15px, 1.2vw, 17px)', lineHeight: 1.85, color: 'var(--color-text)', marginBottom: 20, textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}>
                 I am Deepak Arya, a Full Stack Developer and Artificial Intelligence & Machine Learning student with a strong interest in web development, software engineering, and modern technologies.
               </p>
-              <p style={{ fontSize: 'clamp(15px, 1.2vw, 17px)', lineHeight: 1.85, color: 'var(--color-text-dim)', marginBottom: 20 }}>
+              <p style={{ fontSize: 'clamp(15px, 1.2vw, 17px)', lineHeight: 1.85, color: 'var(--color-text)', marginBottom: 20, textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}>
                 I enjoy building scalable applications, creating responsive user interfaces, developing backend APIs, and solving real-world problems through technology.
               </p>
-              <p style={{ fontSize: 'clamp(15px, 1.2vw, 17px)', lineHeight: 1.85, color: 'var(--color-text-dim)' }}>
+              <p style={{ fontSize: 'clamp(15px, 1.2vw, 17px)', lineHeight: 1.85, color: 'var(--color-text)', textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}>
                 My goal is to become a highly skilled software engineer and contribute to impactful products while continuously learning new technologies.
               </p>
             </GlassCard>
@@ -60,9 +60,9 @@ export default function About() {
               <motion.div key={item.title} variants={fadeUp} custom={i}>
                 <LiquidGlass
                   radius={18}
-                  blur={24}
-                  tint="rgba(255,255,255,0.05)"
-                  tintHover="rgba(255,255,255,0.09)"
+                  blur={6}
+                  tint="rgba(255,255,255,0.02)"
+                  tintHover="rgba(255,255,255,0.01)"
                   glow="#6366f1"
                   intensity={0.9}
                   style={{ padding: '20px 18px' }}
@@ -76,7 +76,7 @@ export default function About() {
                   }}>
                     <TechIcon name={item.icon} />
                   </div>
-                  <span style={{ fontSize: 13.5, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
+                  <span style={{ fontSize: 13.5, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color-text)', textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}>
                     {item.title}
                   </span>
                 </LiquidGlass>
