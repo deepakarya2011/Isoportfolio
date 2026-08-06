@@ -14,9 +14,8 @@ import {
 } from 'react-icons/fa6'
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: { y: 50 },
   visible: (i = 0) => ({
-    opacity: 1,
     y: 0,
     transition: { duration: 0.6, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] },
   }),
@@ -433,8 +432,8 @@ export default function Experience() {
                     {exp.techStack.map((tech, i) => (
                       <motion.div
                         key={tech}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                        initial={{ scale: 0.8 }}
+                        whileInView={{ scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.04, duration: 0.3 }}
                         whileHover={{ y: -3, scale: 1.05 }}
@@ -487,8 +486,8 @@ export default function Experience() {
                     {exp.highlights.map((h, i) => (
                       <motion.div
                         key={h}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ x: -10 }}
+                        whileInView={{ x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.05, duration: 0.3 }}
                         style={{

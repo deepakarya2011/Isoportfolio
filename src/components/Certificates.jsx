@@ -3,9 +3,8 @@ import { CERTIFICATES } from '../data/portfolioData'
 import { HiOutlineDocumentText } from 'react-icons/hi'
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { y: 40 },
   visible: (i = 0) => ({
-    opacity: 1,
     y: 0,
     transition: { duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] },
   }),

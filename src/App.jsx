@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import AuroraBackground from './components/AuroraBackground'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -19,33 +18,24 @@ function App() {
   }, [])
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key="portfolio"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        style={{ position: 'relative' }}
-      >
-        <AuroraBackground>
-          <CodeRain />
-          <Navbar />
-          <main style={{ position: 'relative', zIndex: 1 }}>
-            <Hero />
-            <About />
-            <Skills />
-            <Projects />
-            <Experience />
-            <Education />
-            <Certificates />
-            <Contact />
-          </main>
-          <Footer />
-          <ScrollToTop />
-        </AuroraBackground>
-      </motion.div>
-    </AnimatePresence>
+    <div style={{ position: 'relative' }}>
+      <AuroraBackground>
+        <CodeRain />
+        <Navbar />
+        <main style={{ position: 'relative', zIndex: 1 }}>
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          <Education />
+          <Certificates />
+          <Contact />
+        </main>
+        <Footer />
+        <ScrollToTop />
+      </AuroraBackground>
+    </div>
   )
 }
 

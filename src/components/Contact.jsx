@@ -2,16 +2,33 @@ import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { PROFILE, SOCIAL_LINKS, EMAILJS_CONFIG } from '../data/portfolioData'
-import { FiGithub, FiLinkedin, FiGlobe, FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiGlobe, FiMail, FiMapPin } from 'react-icons/fi'
 import { HiPaperAirplane } from 'react-icons/hi'
+import { LiquidGlass, GlassCard, GlassButton } from './LiquidGlass'
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { y: 40 },
   visible: (i = 0) => ({
-    opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.55, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] },
   }),
+}
+
+const inputStyle = {
+  width: '100%',
+  padding: '14px 18px',
+  borderRadius: 14,
+  background: 'rgba(255,255,255,0.05)',
+  border: '1px solid rgba(255,255,255,0.12)',
+  backdropFilter: 'blur(12px)',
+  WebkitBackdropFilter: 'blur(12px)',
+  fontSize: 14,
+  color: 'var(--color-text)',
+  outline: 'none',
+  boxSizing: 'border-box',
+  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)',
+  transition: 'border-color 0.25s, box-shadow 0.25s',
+  fontFamily: 'var(--font-sans)',
 }
 
 export default function Contact() {
@@ -22,389 +39,152 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault()
     setSending(true)
-
-    emailjs
-      .sendForm(
-        EMAILJS_CONFIG.serviceId,
-        EMAILJS_CONFIG.templateId,
-        formRef.current,
-        EMAILJS_CONFIG.publicKey
-      )
-      .then(
-        () => {
-          setSent(true)
-          setSending(false)
-          e.target.reset()
-          setTimeout(() => setSent(false), 4000)
-        },
-        (error) => {
-          console.error('EmailJS error:', error)
-          setSending(false)
-          alert('Failed to send message. Please try again later.')
-        }
-      )
+    emailjs.sendForm(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, formRef.current, EMAILJS_CONFIG.publicKey)
+      .then(() => {
+        setSent(true); setSending(false); e.target.reset()
+        setTimeout(() => setSent(false), 4000)
+      }, (err) => {
+        console.error(err); setSending(false)
+        alert('Failed to send. Please try again.')
+      })
   }
 
   return (
     <section id="contact" className="section">
       <div className="container">
         <motion.div
-          initial="hidden"
-          whileInView="visible"
+          initial="hidden" whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={fadeUp}
           style={{ textAlign: 'center', marginBottom: 72 }}
         >
-          <span
-            style={{
-              display: 'inline-block',
-              padding: '6px 18px',
-              borderRadius: 'var(--radius-pill)',
-              background: 'rgba(6,182,212,0.12)',
-              border: '1px solid rgba(6,182,212,0.25)',
-              color: 'var(--color-accent)',
-              fontSize: 13,
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: 2,
-              marginBottom: 16,
-            }}
-          >
-            Contact
-          </span>
-          <h2
-            className="gradientText"
-            style={{ fontSize: 'clamp(36px, 4.5vw, 52px)', fontWeight: 700 }}
-          >
+          <span style={{
+            display: 'inline-block', padding: '6px 18px',
+            borderRadius: 'var(--radius-pill)',
+            background: 'rgba(6,182,212,0.12)', border: '1px solid rgba(6,182,212,0.25)',
+            color: 'var(--color-accent)', fontSize: 13, fontWeight: 600,
+            textTransform: 'uppercase', letterSpacing: 2, marginBottom: 16,
+          }}>Contact</span>
+          <h2 className="gradientText" style={{ fontSize: 'clamp(36px, 4.5vw, 52px)', fontWeight: 700 }}>
             Get In Touch
           </h2>
         </motion.div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 60,
-            alignItems: 'start',
-          }}
-          className="contact-grid"
-        >
-          {/* Left — Contact info */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={fadeUp}
-            custom={0}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-               {/* Email */}
-               <div
-                 style={{
-                   display: 'flex',
-                   alignItems: 'center',
-                   gap: 16,
-                   padding: '16px 20px',
-                   position: 'relative',
-                 }}
-                 className="liquidGlassCard"
-               >
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 14,
-                    background: 'rgba(99,102,241,0.12)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 20,
-                    color: 'var(--color-primary-soft)',
-                    flexShrink: 0,
-                  }}
-                >
-                  <FiMail />
-                </div>
-                <div>
-                  <div
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 600,
-                      textTransform: 'uppercase',
-                      letterSpacing: 1,
-                      color: 'var(--color-text-dimmer)',
-                      marginBottom: 4,
-                    }}
-                  >
-                    Email
-                  </div>
-                  <a
-                    href={`mailto:${PROFILE.email}`}
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 500,
-                      color: 'var(--color-text)',
-                      transition: 'color 0.2s',
-                    }}
-                  >
-                    {PROFILE.email}
-                  </a>
-                </div>
-              </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start' }} className="contact-grid">
 
-              {/* Location */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 16,
-                  padding: '16px 20px',
-                  position: 'relative',
-                }}
-                className="liquidGlassCard"
-              >
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 14,
-                    background: 'rgba(168,85,247,0.12)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 20,
-                    color: 'var(--color-purple)',
-                    flexShrink: 0,
-                  }}
-                >
-                  <FiMapPin />
-                </div>
-                <div>
-                  <div
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 600,
-                      textTransform: 'uppercase',
-                      letterSpacing: 1,
-                      color: 'var(--color-text-dimmer)',
-                      marginBottom: 4,
-                    }}
-                  >
-                    Location
+          {/* Left — info */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }} variants={fadeUp} custom={0}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Email card */}
+              <LiquidGlass radius={18} blur={28} tint="rgba(255,255,255,0.05)" tintHover="rgba(255,255,255,0.09)" glow="#6366f1" intensity={0.9} style={{ padding: '18px 20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 14, background: 'rgba(99,102,241,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: 'var(--color-primary-soft)', flexShrink: 0, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)' }}>
+                    <FiMail />
                   </div>
-                  <span style={{ fontSize: 15, fontWeight: 500 }}>
-                    {PROFILE.location}
-                  </span>
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1.2, color: 'var(--color-text-dimmer)', marginBottom: 4 }}>Email</div>
+                    <a href={`mailto:${PROFILE.email}`} style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-text)', transition: 'color 0.2s' }}>
+                      {PROFILE.email}
+                    </a>
+                  </div>
                 </div>
-              </div>
+              </LiquidGlass>
+
+              {/* Location card */}
+              <LiquidGlass radius={18} blur={28} tint="rgba(255,255,255,0.05)" tintHover="rgba(255,255,255,0.09)" glow="#a855f7" intensity={0.9} style={{ padding: '18px 20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 14, background: 'rgba(168,85,247,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: 'var(--color-purple)', flexShrink: 0, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)' }}>
+                    <FiMapPin />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1.2, color: 'var(--color-text-dimmer)', marginBottom: 4 }}>Location</div>
+                    <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-text)' }}>{PROFILE.location}</span>
+                  </div>
+                </div>
+              </LiquidGlass>
             </div>
 
             {/* Social links */}
-            <div
-              style={{
-                display: 'flex',
-                gap: 12,
-                marginTop: 28,
-              }}
-            >
-              <motion.a
-                href={SOCIAL_LINKS.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -4, background: 'rgba(255,255,255,0.1)' }}
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 14,
-                  background: 'var(--glass-bg-strong)',
-                  border: '1px solid var(--glass-border)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 22,
-                  color: 'var(--color-text-dim)',
-                  transition: '0.25s',
-                }}
-              >
-                <FiGithub />
-              </motion.a>
-              <motion.a
-                href={SOCIAL_LINKS.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -4, background: 'rgba(255,255,255,0.1)' }}
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 14,
-                  background: 'var(--glass-bg-strong)',
-                  border: '1px solid var(--glass-border)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 22,
-                  color: 'var(--color-text-dim)',
-                  transition: '0.25s',
-                }}
-              >
-                <FiLinkedin />
-              </motion.a>
-              <motion.a
-                href={SOCIAL_LINKS.portfolio}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -4, background: 'rgba(255,255,255,0.1)' }}
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 14,
-                  background: 'var(--glass-bg-strong)',
-                  border: '1px solid var(--glass-border)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 22,
-                  color: 'var(--color-text-dim)',
-                  transition: '0.25s',
-                }}
-              >
-                <FiGlobe />
-              </motion.a>
+            <div style={{ display: 'flex', gap: 12, marginTop: 24 }}>
+              {[
+                { href: SOCIAL_LINKS.github, icon: <FiGithub size={20} />, glow: '#6366f1' },
+                { href: SOCIAL_LINKS.linkedin, icon: <FiLinkedin size={20} />, glow: '#06b6d4' },
+                { href: SOCIAL_LINKS.portfolio, icon: <FiGlobe size={20} />, glow: '#a855f7' },
+              ].map(({ href, icon, glow }, i) => (
+                <LiquidGlass
+                  key={i}
+                  as="a"
+                  href={href}
+                  radius={14}
+                  blur={20}
+                  tint="rgba(255,255,255,0.06)"
+                  tintHover="rgba(255,255,255,0.12)"
+                  glow={glow}
+                  intensity={1}
+                  style={{ width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-dim)' }}
+                >
+                  {icon}
+                </LiquidGlass>
+              ))}
             </div>
           </motion.div>
 
-          {/* Right — Contact form */}
-          <motion.form
-            ref={formRef}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={fadeUp}
-            custom={1}
-            onSubmit={handleSubmit}
-            style={{
-              padding: '36px',
-              borderRadius: 'var(--radius-md)',
-              background: 'var(--glass-bg)',
-              border: '1px solid var(--glass-border)',
-              backdropFilter: 'blur(16px)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 18,
-            }}
-          >
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="contact-form-grid">
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                required
-                style={{
-                  padding: '14px 18px',
-                  borderRadius: 12,
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid var(--glass-border)',
-                  fontSize: 14,
-                  color: '#fff',
-                  outline: 'none',
-                  transition: 'border-color 0.2s',
-                }}
-                onFocus={(e) => (e.target.style.borderColor = '#6366f1')}
-                onBlur={(e) => (e.target.style.borderColor = 'var(--glass-border)')}
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                required
-                style={{
-                  padding: '14px 18px',
-                  borderRadius: 12,
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid var(--glass-border)',
-                  fontSize: 14,
-                  color: '#fff',
-                  outline: 'none',
-                  transition: 'border-color 0.2s',
-                }}
-                onFocus={(e) => (e.target.style.borderColor = '#6366f1')}
-                onBlur={(e) => (e.target.style.borderColor = 'var(--glass-border)')}
-              />
-            </div>
-            <input
-              type="text"
-              name="title"
-              placeholder="Subject"
-              required
-              style={{
-                padding: '14px 18px',
-                borderRadius: 12,
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid var(--glass-border)',
-                fontSize: 14,
-                color: '#fff',
-                outline: 'none',
-                transition: 'border-color 0.2s',
-              }}
-              onFocus={(e) => (e.target.style.borderColor = '#6366f1')}
-              onBlur={(e) => (e.target.style.borderColor = 'var(--glass-border)')}
-            />
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              rows={5}
-              required
-              style={{
-                padding: '14px 18px',
-                borderRadius: 12,
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid var(--glass-border)',
-                fontSize: 14,
-                color: '#fff',
-                outline: 'none',
-                resize: 'vertical',
-                transition: 'border-color 0.2s',
-              }}
-              onFocus={(e) => (e.target.style.borderColor = '#6366f1')}
-              onBlur={(e) => (e.target.style.borderColor = 'var(--glass-border)')}
-            />
-
-            <motion.button
-              type="submit"
-              disabled={sending}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 10,
-                padding: '14px 32px',
-                borderRadius: 'var(--radius-pill)',
-                background: 'var(--gradient-primary)',
-                color: '#fff',
-                fontWeight: 600,
-                fontSize: 15,
-                border: 'none',
-                cursor: sending ? 'not-allowed' : 'pointer',
-                opacity: sending ? 0.7 : 1,
-                boxShadow: 'var(--shadow-glow-primary)',
-                transition: '0.2s',
-              }}
-            >
-              {sending ? 'Sending...' : sent ? 'Message Sent! ✓' : 'Send Message'}
-              {!sending && !sent && <HiPaperAirplane />}
-            </motion.button>
-          </motion.form>
+          {/* Right — form */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }} variants={fadeUp} custom={1}>
+            <GlassCard glow="#06b6d4" blur={32} style={{ padding: '36px 32px' }}>
+              <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }} className="contact-form-grid">
+                  <input type="text" name="name" placeholder="Your Name" required style={inputStyle}
+                    onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
+                    onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
+                  />
+                  <input type="email" name="email" placeholder="Your Email" required style={inputStyle}
+                    onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
+                    onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
+                  />
+                </div>
+                <input type="text" name="title" placeholder="Subject" required style={inputStyle}
+                  onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
+                  onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
+                />
+                <textarea name="message" placeholder="Your Message" rows={5} required
+                  style={{ ...inputStyle, resize: 'vertical' }}
+                  onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
+                  onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
+                />
+                <GlassButton
+                  as="button"
+                  type="submit"
+                  disabled={sending}
+                  variant="primary"
+                  style={{
+                    width: '100%', padding: '14px 32px',
+                    fontSize: 15, color: '#fff',
+                    opacity: sending ? 0.7 : 1,
+                    cursor: sending ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {sending ? 'Sending…' : sent ? 'Sent! ✓' : (
+                    <>
+                      <span style={{ lineHeight: 1 }}>Send Message</span>
+                      <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0, lineHeight: 1 }}>
+                        <HiPaperAirplane />
+                      </span>
+                    </>
+                  )}
+                </GlassButton>
+              </form>
+            </GlassCard>
+          </motion.div>
         </div>
       </div>
 
       <style>{`
         @media (max-width: 820px) {
-          .contact-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
+          .contact-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+        }
+        @media (max-width: 640px) {
+          .contact-form-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

@@ -3,9 +3,8 @@ import { GITHUB_STATS, GITHUB_USERNAME, SOCIAL_LINKS } from '../data/portfolioDa
 import { FiGithub, FiStar, FiGitCommit, FiActivity, FiCalendar } from 'react-icons/fi'
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { y: 40 },
   visible: (i = 0) => ({
-    opacity: 1,
     y: 0,
     transition: { duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] },
   }),
