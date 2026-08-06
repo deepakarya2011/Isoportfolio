@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import AuroraBackground from './components/AuroraBackground'
+import PremiumBackground from './components/PremiumBackground'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -20,6 +21,7 @@ function App() {
   return (
     <div style={{ position: 'relative' }}>
       <AuroraBackground>
+        <PremiumBackground />
         <CodeRain />
         <Navbar />
         <main style={{ position: 'relative', zIndex: 1 }}>
