@@ -1,31 +1,31 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { NAV_LINKS, PROFILE } from '../data/portfolioData'
-import { HiMenuAlt3, HiX, HiSun, HiMoon } from 'react-icons/hi'
+import { NAV_LINKS, HAMBURGER_LINKS, PROFILE } from '../data/portfolioData'
+import { HiSun, HiMoon } from 'react-icons/hi'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [hamburgerOpen, setHamburgerOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('theme')
-      return stored !== 'light'
+      return localStorage.getItem('theme') !== 'light'
     }
     return true
   })
+  const hamburgerRef = useRef(null)
 
   useEffect(() => {
+    const allLinks = [...NAV_LINKS, ...HAMBURGER_LINKS]
     const onScroll = () => {
       setScrolled(window.scrollY > 40)
-      
-      // Track active section
-      const sections = NAV_LINKS.map(link => link.href.replace('#', ''))
-      const current = sections.find(section => {
-        const el = document.getElementById(section)
+      const sections = allLinks.map(l => l.href.replace('#', ''))
+      const current = sections.find(id => {
+        const el = document.getElementById(id)
         if (el) {
           const rect = el.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
+          return rect.top <= 120 && rect.bottom >= 120
         }
         return false
       })
@@ -36,54 +36,65 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
-    const theme = darkMode ? 'dark' : 'light'
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light')
   }, [darkMode])
 
-  const toggleTheme = () => setDarkMode((prev) => !prev)
+  // Close hamburger on outside click
+  useEffect(() => {
+    const handler = (e) => {
+      if (hamburgerRef.current && !hamburgerRef.current.contains(e.target)) {
+        setHamburgerOpen(false)
+      }
+    }
+    if (hamburgerOpen) document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [hamburgerOpen])
 
   const scrollTo = (href) => {
     setMenuOpen(false)
+    setHamburgerOpen(false)
     const id = href.replace('#', '')
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ type: 'spring', stiffness: 120, damping: 24, delay: 0.2 }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.1 }}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
         zIndex: 1000,
-        height: 72,
         display: 'flex',
         alignItems: 'center',
-        marginTop: 20,
+        height: 72,
+        marginTop: 16,
+        padding: '0 16px',
       }}
     >
+      {/* Glass pill background */}
       <div
         style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 72,
+          inset: 0,
+          margin: '0 16px',
+          borderRadius: 'var(--radius-pill)',
           background: scrolled ? 'var(--glass-bg-strong)' : 'var(--glass-bg)',
           backdropFilter: 'blur(40px)',
           WebkitBackdropFilter: 'blur(40px)',
           border: '1px solid var(--glass-border)',
-          borderRadius: 'var(--radius-pill)',
-          boxShadow: 'var(--glass-floating)',
-          transition: 'background 0.4s var(--ease-premium), backdrop-filter 0.4s var(--ease-premium)',
-          margin: '0 16px',
-          maxWidth: 'calc(100% - 32px)',
+          boxShadow: scrolled
+            ? '0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12)'
+            : '0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08)',
+          transition: 'all 0.4s var(--ease-premium)',
+          pointerEvents: 'none',
         }}
-      ></div>
+      />
+
       <div
         className="container"
         style={{
@@ -106,7 +117,9 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            color: '#fff',
+            cursor: 'pointer',
+            position: 'relative',
+            zIndex: 2,
           }}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
@@ -114,12 +127,7 @@ export default function Navbar() {
           <img
             src={PROFILE.logo}
             alt="Deepak Arya"
-            style={{
-              height: 40,
-              width: 'auto',
-              borderRadius: 10,
-              objectFit: 'contain',
-            }}
+            style={{ height: 38, width: 'auto', borderRadius: 10, objectFit: 'contain' }}
           />
           <span
             style={{
@@ -137,14 +145,10 @@ export default function Navbar() {
           </span>
         </motion.button>
 
-        {/* Desktop nav + Theme toggle */}
+        {/* Desktop nav */}
         <div
-          style={{
-            display: 'flex',
-            gap: 6,
-            alignItems: 'center',
-          }}
           className="nav-desktop"
+          style={{ display: 'flex', gap: 4, alignItems: 'center' }}
         >
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.href.replace('#', '')
@@ -153,33 +157,32 @@ export default function Navbar() {
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
                 style={{
-                  background: isActive ? 'var(--glass-bg-strong)' : 'none',
+                  background: isActive ? 'rgba(99,102,241,0.15)' : 'none',
                   border: 'none',
                   padding: '8px 16px',
                   borderRadius: 10,
                   color: isActive ? 'var(--color-text)' : 'var(--color-text-dim)',
                   fontSize: 14,
                   fontWeight: isActive ? 600 : 500,
-                  transition: 'color 0.25s, background 0.25s',
                   cursor: 'pointer',
                   position: 'relative',
+                  transition: 'all 0.2s',
+                  zIndex: 2,
                 }}
-                whileHover={{
-                  color: 'var(--color-text)',
-                  background: 'var(--glass-bg-strong)',
-                }}
+                whileHover={{ color: 'var(--color-text)', background: 'rgba(255,255,255,0.07)' }}
                 whileTap={{ scale: 0.95 }}
               >
                 {link.label}
                 {isActive && (
-                  <span
+                  <motion.span
+                    layoutId="nav-indicator"
                     style={{
                       position: 'absolute',
                       bottom: 2,
                       left: '50%',
                       transform: 'translateX(-50%)',
-                      width: 20,
-                      height: 3,
+                      width: 18,
+                      height: 2,
                       background: 'var(--gradient-primary)',
                       borderRadius: 2,
                     }}
@@ -189,16 +192,16 @@ export default function Navbar() {
             )
           })}
 
-          {/* Theme Toggle */}
+          {/* Theme toggle */}
           <motion.button
-            onClick={toggleTheme}
+            onClick={() => setDarkMode(p => !p)}
             whileHover={{ scale: 1.1, rotate: 15 }}
             whileTap={{ scale: 0.9 }}
             style={{
               background: 'var(--glass-bg)',
               border: '1px solid var(--glass-border)',
               borderRadius: 12,
-              padding: 10,
+              padding: 9,
               color: 'var(--color-text)',
               cursor: 'pointer',
               fontSize: 18,
@@ -207,43 +210,120 @@ export default function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               marginLeft: 4,
-              transition: 'background 0.3s, color 0.3s',
+              zIndex: 2,
+              minWidth: 40,
+              minHeight: 40,
             }}
             aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {darkMode ? <HiSun /> : <HiMoon />}
           </motion.button>
+
+          {/* Desktop hamburger for About/Education/Certificates */}
+          <div ref={hamburgerRef} style={{ position: 'relative', zIndex: 2 }}>
+            <motion.button
+              onClick={() => setHamburgerOpen(o => !o)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                background: hamburgerOpen ? 'rgba(99,102,241,0.15)' : 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+                borderRadius: 12,
+                padding: '9px 12px',
+                color: 'var(--color-text)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 5,
+                marginLeft: 4,
+                minWidth: 44,
+                minHeight: 40,
+                transition: 'all 0.2s',
+              }}
+              aria-label="More navigation"
+            >
+              <HamburgerIcon open={hamburgerOpen} />
+            </motion.button>
+
+            <AnimatePresence>
+              {hamburgerOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 10px)',
+                    right: 0,
+                    minWidth: 180,
+                    background: 'var(--glass-bg-strong)',
+                    backdropFilter: 'blur(40px)',
+                    WebkitBackdropFilter: 'blur(40px)',
+                    border: '1px solid var(--glass-border)',
+                    borderRadius: 16,
+                    padding: 8,
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                    zIndex: 100,
+                  }}
+                >
+                  {HAMBURGER_LINKS.map((link, i) => (
+                    <motion.button
+                      key={link.href}
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      onClick={() => scrollTo(link.href)}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        background: 'none',
+                        border: 'none',
+                        padding: '11px 16px',
+                        borderRadius: 10,
+                        color: 'var(--color-text-dim)',
+                        fontSize: 14,
+                        fontWeight: 500,
+                        textAlign: 'left',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s',
+                      }}
+                      whileHover={{ background: 'rgba(99,102,241,0.12)', color: 'var(--color-text)' }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      {link.label}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
-        {/* Hamburger + Theme toggle (mobile) */}
+        {/* Mobile controls */}
         <div
-          style={{
-            display: 'none',
-            alignItems: 'center',
-            gap: 8,
-          }}
           className="hamburger-group"
+          style={{ display: 'none', alignItems: 'center', gap: 8 }}
         >
-          {/* Mobile Theme Toggle */}
           <motion.button
-            onClick={toggleTheme}
-            whileHover={{ scale: 1.1, rotate: 15 }}
+            onClick={() => setDarkMode(p => !p)}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             style={{
               background: 'var(--glass-bg)',
               border: '1px solid var(--glass-border)',
               borderRadius: 12,
               padding: 8,
-              color: 'var(--color-text-dim)',
+              color: 'var(--color-text)',
               cursor: 'pointer',
               fontSize: 20,
-              lineHeight: 1,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              transition: 'background 0.3s, color 0.3s',
               minWidth: 44,
               minHeight: 44,
+              zIndex: 2,
             }}
             aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
@@ -251,23 +331,25 @@ export default function Navbar() {
           </motion.button>
 
           <motion.button
-            onClick={() => setMenuOpen((o) => !o)}
+            onClick={() => setMenuOpen(o => !o)}
             style={{
               background: 'var(--glass-bg)',
               border: '1px solid var(--glass-border)',
               borderRadius: 12,
               padding: 8,
-              color: 'var(--color-text-dim)',
+              color: 'var(--color-text)',
               cursor: 'pointer',
-              fontSize: 22,
-              lineHeight: 1,
               minWidth: 44,
               minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 2,
             }}
-            className="hamburger"
             whileTap={{ scale: 0.9 }}
+            aria-label="Toggle menu"
           >
-            {menuOpen ? <HiX /> : <HiMenuAlt3 />}
+            <HamburgerIcon open={menuOpen} />
           </motion.button>
         </div>
       </div>
@@ -276,51 +358,49 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20, scaleY: 0.96 }}
+            initial={{ opacity: 0, y: -12, scaleY: 0.95 }}
             animate={{ opacity: 1, y: 0, scaleY: 1 }}
-            exit={{ opacity: 0, y: -20, scaleY: 0.96 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, y: -12, scaleY: 0.95 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             style={{
               position: 'fixed',
-              top: 'var(--nav-h)',
+              top: 'calc(72px + 24px)',
               left: 16,
               right: 16,
-              background: 'var(--glass-bg)',
-              backdropFilter: 'blur(30px)',
-              WebkitBackdropFilter: 'blur(30px)',
+              background: 'var(--glass-bg-strong)',
+              backdropFilter: 'blur(40px)',
+              WebkitBackdropFilter: 'blur(40px)',
               border: '1px solid var(--glass-border)',
               borderRadius: 20,
-              padding: 16,
+              padding: 12,
               display: 'flex',
               flexDirection: 'column',
-              gap: 4,
+              gap: 2,
               zIndex: 999,
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-              maxWidth: 'calc(100% - 32px)',
+              boxShadow: '0 24px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)',
             }}
           >
-            {NAV_LINKS.map((link, i) => (
+            {[...NAV_LINKS, ...HAMBURGER_LINKS].map((link, i) => (
               <motion.button
                 key={link.href}
-                initial={{ opacity: 0, x: -12 }}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
+                transition={{ delay: i * 0.04 }}
                 onClick={() => scrollTo(link.href)}
                 style={{
                   background: 'none',
                   border: 'none',
-                  padding: '14px 16px',
-                  borderRadius: 14,
-                  color: 'var(--color-text-dim)',
+                  padding: '13px 16px',
+                  borderRadius: 12,
+                  color: activeSection === link.href.replace('#', '') ? 'var(--color-text)' : 'var(--color-text-dim)',
                   fontSize: 15,
-                  fontWeight: 500,
+                  fontWeight: activeSection === link.href.replace('#', '') ? 600 : 500,
                   textAlign: 'left',
                   cursor: 'pointer',
-                  transition: 'background 0.2s',
-                  minWidth: 44,
+                  background: activeSection === link.href.replace('#', '') ? 'rgba(99,102,241,0.12)' : 'none',
                   minHeight: 44,
                 }}
-                whileHover={{ background: 'var(--glass-bg-strong)', color: 'var(--color-text)' }}
+                whileHover={{ background: 'rgba(255,255,255,0.06)', color: 'var(--color-text)' }}
                 whileTap={{ scale: 0.97 }}
               >
                 {link.label}
@@ -330,7 +410,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Inline styles for responsive hamburger */}
       <style>{`
         @media (max-width: 820px) {
           .nav-desktop { display: none !important; }
@@ -338,5 +417,33 @@ export default function Navbar() {
         }
       `}</style>
     </motion.nav>
+  )
+}
+
+function HamburgerIcon({ open }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <motion.line
+        x1="3" y1="5" x2="17" y2="5"
+        stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+        animate={open ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+        style={{ transformOrigin: '10px 5px' }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+      />
+      <motion.line
+        x1="3" y1="10" x2="17" y2="10"
+        stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+        animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+        style={{ transformOrigin: '10px 10px' }}
+        transition={{ duration: 0.2 }}
+      />
+      <motion.line
+        x1="3" y1="15" x2="17" y2="15"
+        stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+        animate={open ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+        style={{ transformOrigin: '10px 15px' }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+      />
+    </svg>
   )
 }

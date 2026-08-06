@@ -1,5 +1,4 @@
 // Central data store for the portfolio.
-// Update links, images and copy here — components read from this file.
 
 export const PROFILE = {
   name: 'Deepak Arya',
@@ -27,16 +26,20 @@ export const SOCIAL_LINKS = {
 
 export const GITHUB_USERNAME = 'deepakarya2011'
 
+// Desktop nav — primary links only
 export const NAV_LINKS = [
   { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Contact', href: '#contact' },
+]
+
+// Hamburger menu — secondary links
+export const HAMBURGER_LINKS = [
+  { label: 'About', href: '#about' },
   { label: 'Education', href: '#education' },
   { label: 'Certificates', href: '#certificates' },
-  { label: 'GitHub', href: '#github' },
-  { label: 'Contact', href: '#contact' },
 ]
 
 export const HERO_TECH_ICONS = [
@@ -107,7 +110,19 @@ export const SKILL_GROUPS = [
   },
 ]
 
+// Projects ordered: strongest first
 export const PROJECTS = [
+  {
+    id: 'chat-app',
+    title: 'FlixerChat — Real-Time Chat App',
+    description:
+      'A modern real-time chat platform with JWT authentication, Socket.IO messaging, responsive UI, and a seamless communication experience built on the full MERN stack.',
+    tech: ['React.js', 'Node.js', 'Socket.IO', 'MongoDB'],
+    github: 'https://github.com/deepakarya2011',
+    demo: 'https://flixerchat.vercel.app/',
+    accent: '#6366F1',
+    thumbnail: '/Project thumbnails/Real-Time Chat Application.webp',
+  },
   {
     id: 'careerconnect',
     title: 'CareerConnect Job Portal',
@@ -116,7 +131,7 @@ export const PROJECTS = [
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
     github: 'https://github.com/deepakarya2011',
     demo: 'https://careerconnectfrontend.vercel.app/',
-    accent: '#6366F1',
+    accent: '#06B6D4',
     thumbnail: '/Project thumbnails/CareerConnect Job Portal.webp',
   },
   {
@@ -127,7 +142,7 @@ export const PROJECTS = [
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
     github: 'https://github.com/deepakarya2011',
     demo: 'https://aryatodolist.vercel.app/',
-    accent: '#06B6D4',
+    accent: '#A855F7',
     thumbnail: '/Project thumbnails/TaskFlow Manager.webp',
   },
   {
@@ -138,19 +153,8 @@ export const PROJECTS = [
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
     github: 'https://github.com/deepakarya2011',
     demo: 'https://expense-tracker-app-ruddy-ten.vercel.app/',
-    accent: '#A855F7',
-    thumbnail: '/Project thumbnails/Expense Tracker Pro.webp',
-  },
-  {
-    id: 'chat-app',
-    title: 'Real-Time Chat Application',
-    description:
-      'A modern chat platform with authentication, real-time messaging, responsive UI, and a seamless communication experience.',
-    tech: ['React.js', 'Node.js', 'Socket.IO', 'MongoDB'],
-    github: 'https://github.com/deepakarya2011',
-    demo: 'https://flixerchat.vercel.app/',
     accent: '#6366F1',
-    thumbnail: '/Project thumbnails/Real-Time Chat Application.webp',
+    thumbnail: '/Project thumbnails/Expense Tracker Pro.webp',
   },
   {
     id: 'ai-text-utility',
@@ -204,21 +208,13 @@ export const CERTIFICATES = [
   { title: 'Problem Solving (Basic)', issuer: 'HackerRank', year: '2023' },
 ]
 
-export const GITHUB_STATS = [
-  { label: 'Repositories', value: 20, suffix: '+' },
-  { label: 'Total Commits', value: 500, suffix: '+' },
-  { label: 'Contributions', value: 300, suffix: '+' },
-  { label: 'Current Streak', value: 15, suffix: ' days' },
-]
-
-// EmailJS configuration — replace with your own credentials from https://www.emailjs.com
+// EmailJS configuration
 export const EMAILJS_CONFIG = {
-  serviceId: 'service_6px5ygm',   // Replace with your EmailJS Service ID
-  templateId: 'template_ymvr4h4', // Replace with your EmailJS Template ID
-  publicKey: 'Qm4V52W9QS9CWq8TP',   // Replace with your EmailJS Public Key
+  serviceId: 'service_6px5ygm',
+  templateId: 'template_ymvr4h4',
+  publicKey: 'Qm4V52W9QS9CWq8TP',
 }
 
-// ─── Experience Data ───────────────────────────────────────────
 export const EXPERIENCE = [
   {
     id: 'mr-rishi-cms',
