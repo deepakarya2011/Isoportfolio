@@ -186,15 +186,29 @@ export default function Education() {
       </div>
 
       <style>{`
-        @media (max-width: 640px) {
+        /* ── Desktop (default) — timeline line at left:29, dots centered at 29 ── */
+        /* ── Mobile (below 768px) — move line & dots left, keep 24-32px gap from cards ── */
+        @media (max-width: 768px) {
           .education-line {
-            display: none !important;
+            left: 12px !important;
           }
           .education-timeline > div {
-            padding-left: 16px !important;
+            padding-left: 48px !important;
+          }
+          .education-timeline > div > div:first-child {
+            left: 2px !important;
           }
           .education-timeline .liquidGlassCard {
-            padding: 20px 16px !important;
+            padding: 20px 18px !important;
+          }
+        }
+        /* Extra small screens — ensure no overlap */
+        @media (max-width: 480px) {
+          .education-timeline > div {
+            padding-left: 44px !important;
+          }
+          .education-timeline .liquidGlassCard {
+            padding: 18px 14px !important;
           }
         }
       `}</style>
