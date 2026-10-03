@@ -21,30 +21,11 @@ export default function GitHubStats() {
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={fadeUp}
-          style={{ textAlign: 'center', marginBottom: 72 }}
+          className="section-head"
         >
-          <span
-            style={{
-              display: 'inline-block',
-              padding: '6px 18px',
-              borderRadius: 'var(--radius-pill)',
-              background: 'rgba(168,85,247,0.12)',
-              border: '1px solid rgba(168,85,247,0.25)',
-              color: 'var(--color-purple)',
-              fontSize: 13,
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: 2,
-              marginBottom: 16,
-            }}
-          >
-            GitHub
-          </span>
-          <h2
-            className="gradientText"
-            style={{ fontSize: 'clamp(36px, 4.5vw, 52px)', fontWeight: 700 }}
-          >
-            GitHub Activity
+          <span className="section-label">GitHub</span>
+          <h2 className="section-title">
+            GitHub <span className="text-orange">Activity</span>
           </h2>
         </motion.div>
 
@@ -68,12 +49,12 @@ export default function GitHubStats() {
                 viewport={{ once: true, margin: '-60px' }}
                 variants={fadeUp}
                 custom={i}
-                whileHover={{ y: -6, borderColor: 'rgba(255,255,255,0.2)' }}
+                whileHover={{ y: -6, borderColor: 'rgba(255,138,0,0.35)' }}
                 style={{
                   padding: '28px 24px',
                   borderRadius: 'var(--radius-md)',
-                  background: 'rgba(255,255,255,0.02)',
-                  border: '1px solid rgba(255,255,255,0.10)',
+                  background: 'rgba(21, 23, 25,0.88)',
+                  border: '1px solid var(--color-border)',
                   backdropFilter: 'blur(6px)',
                   WebkitBackdropFilter: 'blur(6px)',
                   textAlign: 'center',

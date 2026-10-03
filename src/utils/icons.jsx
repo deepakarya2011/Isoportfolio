@@ -13,6 +13,9 @@ import {
   SiVercel,
   SiPython,
   SiSocketdotio,
+  SiMysql,
+  SiAndroid,
+  SiApple,
 } from 'react-icons/si'
 import { VscVscode } from 'react-icons/vsc'
 import {
@@ -51,6 +54,10 @@ export const ICONS = {
   vscode: VscVscode,
   python: SiPython,
   socketio: SiSocketdotio,
+  mysql: SiMysql,
+  reactnative: SiReact,
+  android: SiAndroid,
+  ios: SiApple,
   api: FaNetworkWired,
   database: FaDatabase,
   device: FaMobileScreenButton,

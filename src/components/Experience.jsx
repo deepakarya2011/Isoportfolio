@@ -83,17 +83,17 @@ function MetricItem({ label, value, suffix }) {
       ref={ref}
       style={{
         textAlign: 'center',
-        padding: '16px 12px',
+        padding: '12px 10px',
         borderRadius: 'var(--radius-md)',
-        background: 'rgba(255,255,255,0.02)',
-        border: '1px solid var(--glass-border)',
+        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid var(--color-border)',
         transition: 'all 0.3s var(--ease-premium)',
       }}
       className="metric-item"
     >
       <div
         style={{
-          fontSize: 'clamp(24px, 2.5vw, 32px)',
+          fontSize: 'clamp(20px, 2.2vw, 26px)',
           fontWeight: 800,
           fontFamily: 'var(--font-heading)',
           background: 'var(--gradient-primary)',
@@ -106,7 +106,7 @@ function MetricItem({ label, value, suffix }) {
       </div>
       <div
         style={{
-          fontSize: 12,
+          fontSize: 11,
           color: 'var(--color-text)',
           fontWeight: 600,
           marginTop: 4,
@@ -122,8 +122,15 @@ function MetricItem({ label, value, suffix }) {
 }
 
 export default function Experience() {
+  const [showAllResp, setShowAllResp] = useState(false)
   const exp = EXPERIENCE[0]
   if (!exp) return null
+
+  const RESP_COLLAPSED_COUNT = 5
+  const visibleResp = showAllResp
+    ? exp.responsibilities
+    : exp.responsibilities.slice(0, RESP_COLLAPSED_COUNT)
+  const hiddenRespCount = exp.responsibilities.length - RESP_COLLAPSED_COUNT
 
   return (
     <section id="experience" className="section">
@@ -134,30 +141,11 @@ export default function Experience() {
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={fadeUp}
-          style={{ textAlign: 'center', marginBottom: 72 }}
+          className="section-head"
         >
-          <span
-            style={{
-              display: 'inline-block',
-              padding: '6px 18px',
-              borderRadius: 'var(--radius-pill)',
-              background: 'rgba(99,102,241,0.12)',
-              border: '1px solid rgba(99,102,241,0.25)',
-              color: 'var(--color-primary-soft)',
-              fontSize: 13,
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: 2,
-              marginBottom: 16,
-            }}
-          >
-            Experience
-          </span>
-          <h2
-            className="gradientText"
-            style={{ fontSize: 'clamp(36px, 4.5vw, 52px)', fontWeight: 700 }}
-          >
-            Professional Experience & Client Work
+          <span className="section-label">Experience</span>
+          <h2 className="section-title">
+            Professional Experience &amp; <span className="text-orange">Client Work</span>
           </h2>
         </motion.div>
 
@@ -178,8 +166,8 @@ export default function Experience() {
               bottom: 0,
               width: 2,
               background:
-                'linear-gradient(180deg, var(--color-primary), var(--color-accent), transparent)',
-              opacity: 0.5,
+                'linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06) 70%, transparent)',
+              opacity: 1,
             }}
             className="exp-line"
           />
@@ -199,7 +187,7 @@ export default function Experience() {
               style={{
                 position: 'absolute',
                 left: 24,
-                top: 28,
+                top: 22,
                 width: 26,
                 height: 26,
                 borderRadius: '50%',
@@ -216,8 +204,8 @@ export default function Experience() {
                   width: 10,
                   height: 10,
                   borderRadius: '50%',
-                  background: 'var(--color-accent)',
-                  boxShadow: '0 0 12px rgba(6,182,212,0.5)',
+                  background: 'var(--color-primary)',
+                  boxShadow: '0 0 12px rgba(255,138,0,0.55)',
                 }}
               />
             </div>
@@ -227,7 +215,7 @@ export default function Experience() {
               {/* Card Header with gradient accent */}
               <div
                 style={{
-                  padding: '28px 32px 20px',
+                  padding: '18px 22px 14px',
                   position: 'relative',
                   borderBottom: '1px solid var(--glass-border)',
                 }}
@@ -252,12 +240,12 @@ export default function Experience() {
                     gap: 6,
                     padding: '4px 14px',
                     borderRadius: 'var(--radius-pill)',
-                    background: 'rgba(34,197,94,0.12)',
-                    border: '1px solid rgba(34,197,94,0.25)',
-                    color: '#22c55e',
+                    background: 'rgba(255, 138, 0,0.12)',
+                    border: '1px solid rgba(255, 138, 0,0.25)',
+                    color: '#FF9D1A',
                     fontSize: 12,
                     fontWeight: 600,
-                    marginBottom: 16,
+                    marginBottom: 10,
                   }}
                 >
                   <FaCircleCheck size={12} />
@@ -274,12 +262,12 @@ export default function Experience() {
                   }}
                 >
                   <FaBriefcase
-                    size={20}
+                    size={18}
                     style={{ color: 'var(--color-primary-soft)', flexShrink: 0 }}
                   />
                   <h3
                     style={{
-                      fontSize: 22,
+                      fontSize: 19,
                       fontWeight: 700,
                       fontFamily: 'var(--font-heading)',
                     }}
@@ -293,17 +281,17 @@ export default function Experience() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 10,
-                    marginBottom: 12,
+                    marginBottom: 8,
                     flexWrap: 'wrap',
                   }}
                 >
                   <FaUserTie
-                    size={15}
+                    size={14}
                     style={{ color: 'var(--color-text-dimmer)', flexShrink: 0 }}
                   />
                   <span
                     style={{
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: 600,
                       color: 'var(--color-accent)',
                     }}
@@ -317,8 +305,8 @@ export default function Experience() {
                   style={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    gap: 20,
-                    fontSize: 13,
+                    gap: 16,
+                    fontSize: 12.5,
                     color: 'var(--color-text)',
                     textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                   }}
@@ -335,14 +323,14 @@ export default function Experience() {
               </div>
 
               {/* Card Body */}
-              <div style={{ padding: '24px 32px' }}>
+              <div style={{ padding: '16px 22px 18px' }}>
                 {/* Description */}
                 <p
                   style={{
-                    fontSize: 14.5,
-                    lineHeight: 1.8,
+                    fontSize: 13.5,
+                    lineHeight: 1.7,
                     color: 'var(--color-text)',
-                    marginBottom: 28,
+                    marginBottom: 18,
                     textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                   }}
                 >
@@ -350,44 +338,44 @@ export default function Experience() {
                 </p>
 
                 {/* Responsibilities */}
-                <div style={{ marginBottom: 28 }}>
+                <div style={{ marginBottom: 18 }}>
                   <h4
                     style={{
-                      fontSize: 15,
+                      fontSize: 13.5,
                       fontWeight: 700,
                       fontFamily: 'var(--font-heading)',
                       color: 'var(--color-primary-soft)',
-                      marginBottom: 14,
+                      marginBottom: 10,
                       display: 'flex',
                       alignItems: 'center',
                       gap: 8,
                     }}
                   >
-                    <FaStar size={14} />
+                    <FaStar size={13} />
                     Responsibilities
                   </h4>
                   <div
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                      gap: 8,
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                      gap: 6,
                     }}
                     className="resp-grid"
                   >
-                    {exp.responsibilities.map((item, i) => (
+                    {visibleResp.map((item, i) => (
                       <div
                         key={i}
                         style={{
                           display: 'flex',
                           alignItems: 'flex-start',
-                          gap: 10,
-                          padding: '10px 14px',
+                          gap: 8,
+                          padding: '7px 11px',
                           borderRadius: 'var(--radius-sm)',
                           background: 'rgba(255,255,255,0.02)',
                           border: '1px solid var(--glass-border)',
-                          fontSize: 13.5,
+                          fontSize: 12.5,
                           color: 'var(--color-text)',
-                          lineHeight: 1.6,
+                          lineHeight: 1.5,
                           transition: 'all 0.3s var(--ease-premium)',
                           textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                         }}
@@ -398,7 +386,7 @@ export default function Experience() {
                             color: 'var(--color-accent)',
                             flexShrink: 0,
                             marginTop: 3,
-                            fontSize: 11,
+                            fontSize: 9,
                           }}
                         >
                           ●
@@ -407,30 +395,48 @@ export default function Experience() {
                       </div>
                     ))}
                   </div>
+                  {hiddenRespCount > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setShowAllResp((v) => !v)}
+                      className="exp-toggle"
+                    >
+                      {showAllResp
+                        ? 'Show less'
+                        : `Show all ${exp.responsibilities.length} responsibilities`}
+                      <FaArrowRight
+                        size={11}
+                        style={{
+                          transform: showAllResp ? 'rotate(-90deg)' : 'rotate(90deg)',
+                          transition: 'transform 0.3s var(--ease-premium)',
+                        }}
+                      />
+                    </button>
+                  )}
                 </div>
 
                 {/* Tech Stack */}
-                <div style={{ marginBottom: 28 }}>
+                <div style={{ marginBottom: 18 }}>
                   <h4
                     style={{
-                      fontSize: 15,
+                      fontSize: 13.5,
                       fontWeight: 700,
                       fontFamily: 'var(--font-heading)',
                       color: 'var(--color-primary-soft)',
-                      marginBottom: 14,
+                      marginBottom: 10,
                       display: 'flex',
                       alignItems: 'center',
                       gap: 8,
                     }}
                   >
-                    <FaCode size={14} />
+                    <FaCode size={13} />
                     Tech Stack
                   </h4>
                   <div
                     style={{
                       display: 'flex',
                       flexWrap: 'wrap',
-                      gap: 8,
+                      gap: 6,
                     }}
                   >
                     {exp.techStack.map((tech, i) => (
@@ -445,11 +451,11 @@ export default function Experience() {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: 6,
-                          padding: '6px 14px',
+                          padding: '5px 12px',
                           borderRadius: 'var(--radius-pill)',
-                          background: 'rgba(99,102,241,0.04)',
-                          border: '1px solid rgba(99,102,241,0.15)',
-                          fontSize: 13,
+                          background: 'rgba(21, 23, 25, 0.80)',
+                          border: '1px solid rgba(255, 255, 255, 0.20)',
+                          fontSize: 12,
                           fontWeight: 600,
                           color: 'var(--color-text)',
                           cursor: 'default',
@@ -465,27 +471,27 @@ export default function Experience() {
                 </div>
 
                 {/* Highlights */}
-                <div style={{ marginBottom: 28 }}>
+                <div style={{ marginBottom: 18 }}>
                   <h4
                     style={{
-                      fontSize: 15,
+                      fontSize: 13.5,
                       fontWeight: 700,
                       fontFamily: 'var(--font-heading)',
                       color: 'var(--color-primary-soft)',
-                      marginBottom: 14,
+                      marginBottom: 10,
                       display: 'flex',
                       alignItems: 'center',
                       gap: 8,
                     }}
                   >
-                    <FaStar size={14} />
+                    <FaStar size={13} />
                     Project Highlights
                   </h4>
                   <div
                     style={{
                       display: 'flex',
                       flexWrap: 'wrap',
-                      gap: 8,
+                      gap: 6,
                     }}
                   >
                     {exp.highlights.map((h, i) => (
@@ -499,17 +505,17 @@ export default function Experience() {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: 6,
-                          padding: '5px 12px',
+                          padding: '4px 11px',
                           borderRadius: 'var(--radius-pill)',
-                          background: 'rgba(6,182,212,0.04)',
-                          border: '1px solid rgba(6,182,212,0.12)',
-                          fontSize: 12.5,
+                          background: 'rgba(255,255,255,0.035)',
+                          border: '1px solid rgba(255,255,255,0.09)',
+                          fontSize: 12,
                           fontWeight: 600,
                           color: 'var(--color-text)',
                           textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
                         }}
                       >
-                        <FaCircleCheck size={11} style={{ color: '#22c55e' }} />
+                        <FaCircleCheck size={11} style={{ color: '#FF9D1A' }} />
                         {h}
                       </motion.div>
                     ))}
@@ -520,24 +526,24 @@ export default function Experience() {
                 <div>
                   <h4
                     style={{
-                      fontSize: 15,
+                      fontSize: 13.5,
                       fontWeight: 700,
                       fontFamily: 'var(--font-heading)',
                       color: 'var(--color-primary-soft)',
-                      marginBottom: 16,
+                      marginBottom: 12,
                       display: 'flex',
                       alignItems: 'center',
                       gap: 8,
                     }}
                   >
-                    <FaStar size={14} />
+                    <FaStar size={13} />
                     Metrics
                   </h4>
                   <div
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-                      gap: 12,
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+                      gap: 10,
                     }}
                     className="metrics-grid"
                   >
@@ -566,10 +572,10 @@ export default function Experience() {
             padding-left: 0 !important;
           }
           section#experience .liquidGlassCard > div:first-child {
-            padding: 20px 16px !important;
+            padding: 16px 14px !important;
           }
           section#experience .liquidGlassCard > div:last-child {
-            padding: 16px 16px !important;
+            padding: 14px 14px !important;
           }
           .resp-grid {
             grid-template-columns: 1fr !important;
@@ -588,21 +594,43 @@ export default function Experience() {
         }
         /* Hover effects */
         .resp-item:hover {
-          background: rgba(99,102,241,0.06) !important;
-          border-color: rgba(99,102,241,0.3) !important;
+          background: rgba(255, 255, 255,0.06) !important;
+          border-color: rgba(255,138,0,0.35) !important;
           transform: translateX(4px);
         }
         .tech-badge:hover {
-          background: rgba(99,102,241,0.15) !important;
-          border-color: rgba(99,102,241,0.4) !important;
+          background: rgba(255,138,0,0.10) !important;
+          border-color: rgba(255,138,0,0.45) !important;
           color: var(--color-text) !important;
-          box-shadow: 0 0 20px rgba(99,102,241,0.15);
+          box-shadow: 0 0 20px rgba(255,138,0,0.18);
         }
         .metric-item:hover {
-          background: rgba(255,255,255,0.06) !important;
-          border-color: rgba(99,102,241,0.3) !important;
+          background: rgba(255,255,255,0.05) !important;
+          border-color: rgba(255,138,0,0.35) !important;
           transform: translateY(-2px);
           box-shadow: var(--shadow-glow-primary);
+        }
+        .exp-toggle {
+          margin-top: 10px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 7px 14px;
+          border-radius: var(--radius-pill);
+          background: rgba(255,138,0,0.08);
+          border: 1px solid rgba(255,138,0,0.28);
+          color: var(--color-primary-soft);
+          font-size: 12px;
+          font-weight: 600;
+          font-family: var(--font-heading);
+          cursor: pointer;
+          transition: all 0.3s var(--ease-premium);
+        }
+        .exp-toggle:hover {
+          background: rgba(255,138,0,0.16);
+          border-color: rgba(255,138,0,0.50);
+          box-shadow: 0 0 20px rgba(255,138,0,0.16);
+          transform: translateY(-1px);
         }
       `}</style>
     </section>

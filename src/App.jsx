@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import AuroraBackground from './components/AuroraBackground'
-import PremiumBackground from './components/PremiumBackground'
+import LavaCrack from './components/LavaCrack'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -11,7 +11,6 @@ import Education from './components/Education'
 import Certificates from './components/Certificates'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import CodeRain from './components/CodeRain'
 
 function App() {
   useEffect(() => {
@@ -21,8 +20,13 @@ function App() {
   return (
     <div style={{ position: 'relative' }}>
       <AuroraBackground>
-        <PremiumBackground />
-        <CodeRain />
+        {/* Near-black charcoal base + one whisper-subtle top light — no grid, no blue/purple. */}
+        <div style={{ position: 'fixed', inset: 0, zIndex: -3, background: '#0B0C0E' }} />
+        <div className="bg-glow" aria-hidden="true" />
+        {/* Lava crack overlay — the EXISTING /bg/lavabg.webp is the only crack
+            source: near-invisible at rest; the cursor locally reveals its
+            existing cracks; an invisible expanding wave reveals them on click */}
+        <LavaCrack />
         <Navbar />
         <main style={{ position: 'relative', zIndex: 1 }}>
           <Hero />
@@ -69,7 +73,7 @@ function ScrollToTop() {
         borderRadius: '50%',
         background: 'var(--gradient-primary)',
         border: 'none',
-        color: '#fff',
+        color: '#0B0C0E',
         cursor: 'pointer',
         boxShadow: 'var(--shadow-glow-primary)',
         transition: 'opacity 0.3s, transform 0.3s var(--ease-premium)',

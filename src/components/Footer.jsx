@@ -2,7 +2,8 @@ export default function Footer() {
   return (
     <footer
       style={{
-        borderTop: '1px solid var(--color-border)',
+        borderTop: '1px solid var(--color-border-soft)',
+        background: 'linear-gradient(180deg, rgba(12, 13, 15, 0.30) 0%, rgba(12, 13, 15, 0.92) 100%)',
         padding: '28px 0',
         textAlign: 'center',
       }}

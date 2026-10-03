@@ -32,9 +32,9 @@ export default function PremiumBackground() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const COLORS = [
-      [99, 102, 241],
-      [6, 182, 212],
-      [168, 85, 247],
+      [30, 90, 170],
+      [50, 40, 130],
+      [0, 100, 180],
     ]
 
     const resize = () => {
@@ -158,8 +158,8 @@ export default function PremiumBackground() {
         const ty = s.y - s.vy * trailLen
 
         const grad = ctx.createLinearGradient(s.x, s.y, tx, ty)
-        grad.addColorStop(0, `rgba(220,235,255,${s.life * 0.5})`)
-        grad.addColorStop(1, 'rgba(220,235,255,0)')
+        grad.addColorStop(0, `rgba(255, 138, 0,${s.life * 0.5})`)
+        grad.addColorStop(1, 'rgba(255, 138, 0,0)')
 
         ctx.strokeStyle = grad
         ctx.lineWidth = 1
@@ -171,7 +171,7 @@ export default function PremiumBackground() {
         // Head
         ctx.beginPath()
         ctx.arc(s.x, s.y, 1.2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(220,235,255,${s.life * 0.6})`
+        ctx.fillStyle = `rgba(255, 138, 0,${s.life * 0.6})`
         ctx.fill()
       }
 

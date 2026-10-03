@@ -1,7 +1,6 @@
 import { memo, useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence, useSpring, useTransform } from 'framer-motion'
 import { NAV_LINKS, HAMBURGER_LINKS, PROFILE } from '../data/portfolioData'
-import { HiSun, HiMoon } from 'react-icons/hi'
 
 const SPRING = { stiffness: 160, damping: 26, mass: 1 }
 
@@ -10,16 +9,9 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [hamburgerOpen, setHamburgerOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
-  const [darkMode, setDarkMode] = useState(() => {
-    const stored = typeof window !== 'undefined' ? localStorage.getItem('theme') : null
-    const isDark = stored !== 'light'
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
-    }
-    return isDark
-  })
   const hamburgerRef = useRef(null)
   const navRef = useRef(null)
+  const progressRef = useRef(null)
 
   // Cursor-reactive specular on navbar pill
   const mouseX = useSpring(0.5, SPRING)
@@ -39,6 +31,10 @@ export default function Navbar() {
     const allLinks = [...NAV_LINKS, ...HAMBURGER_LINKS]
     const onScroll = () => {
       setScrolled(window.scrollY > 40)
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`
+      }
       const sections = allLinks.map(l => l.href.replace('#', ''))
       const current = sections.find(id => {
         const el = document.getElementById(id)
@@ -51,11 +47,6 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light')
-  }, [darkMode])
 
   useEffect(() => {
     const handler = (e) => {
@@ -72,8 +63,8 @@ export default function Navbar() {
     document.getElementById(href.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const blur = scrolled ? 6 : 2
-  const tintOpacity = scrolled ? 0.02 : 0.01
+  const blur = scrolled ? 16 : 12
+  const navTint = scrolled ? 'rgba(12, 13, 15, 0.92)' : 'rgba(12, 13, 15, 0.86)'
 
   return (
     <nav
@@ -88,7 +79,9 @@ export default function Navbar() {
         marginTop: 16,
       }}
     >
-      {/* ── True Glass Pill ── */}
+      {/* Scroll progress hairline */}
+      <div ref={progressRef} className="scroll-progress" aria-hidden="true" />
+      {/* True Glass Pill */}
       <div
         ref={navRef}
         onMouseMove={handleNavMouseMove}
@@ -109,17 +102,18 @@ export default function Navbar() {
           transition: 'backdrop-filter 0.5s ease, -webkit-backdrop-filter 0.5s ease',
           pointerEvents: 'none',
         }} />
-        {/* L2: Tint */}
+        {/* L2: charcoal glass tint + neutral 1px border (no blue/purple) */}
         <div style={{
           position: 'absolute', inset: 0, borderRadius: 999,
-          background: `rgba(255,255,255,${tintOpacity})`,
+          background: navTint,
+          border: '1px solid rgba(255, 255, 255, 0.10)',
           transition: 'background 0.4s ease',
           pointerEvents: 'none',
         }} />
-        {/* L3: Ambient glow */}
+        {/* L3: whisper-quiet neutral sheen (keeps the pill from looking flat) */}
         <div style={{
           position: 'absolute', inset: 0, borderRadius: 999,
-          background: 'radial-gradient(ellipse 60% 80% at 20% 50%, rgba(99,102,241,0.12) 0%, transparent 60%), radial-gradient(ellipse 40% 80% at 80% 50%, rgba(6,182,212,0.08) 0%, transparent 60%)',
+          background: 'radial-gradient(ellipse 60% 80% at 20% 50%, rgba(255,255,255,0.045) 0%, transparent 60%), radial-gradient(ellipse 40% 80% at 80% 50%, rgba(255,255,255,0.035) 0%, transparent 60%)',
           pointerEvents: 'none',
         }} />
         {/* L4: Rim border */}
@@ -140,10 +134,10 @@ export default function Navbar() {
           filter: 'blur(0.5px)',
           pointerEvents: 'none',
         }} />
-        {/* L6: Chromatic fringe */}
+        {/* L6: Neutral edge highlight */}
         <div style={{
           position: 'absolute', inset: -1, borderRadius: 1000,
-          boxShadow: 'inset 1px 0 0 rgba(99,102,241,0.15), inset -1px 0 0 rgba(6,182,212,0.12)',
+          boxShadow: 'inset 1px 0 0 rgba(255,255,255,0.10), inset -1px 0 0 rgba(255,255,255,0.07)',
           pointerEvents: 'none',
         }} />
         {/* L7: Cursor specular */}
@@ -180,7 +174,7 @@ export default function Navbar() {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
         >
-          <img src={PROFILE.logo} alt="Deepak Arya" style={{ height: 36, width: 'auto', borderRadius: 10, objectFit: 'contain' }} />
+          <img src={PROFILE.logo} alt="Deepak Arya" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />
           <span style={{
             fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: 19,
             letterSpacing: '-0.03em',
@@ -199,40 +193,13 @@ export default function Navbar() {
               <motion.button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                style={{
-                  background: 'none', border: 'none',
-                  padding: '8px 15px', borderRadius: 10,
-                  color: isActive ? 'var(--color-text)' : 'var(--color-text-dim)',
-                  fontSize: 14, fontWeight: isActive ? 600 : 500,
-                  cursor: 'pointer', position: 'relative',
-                  transition: 'color 0.2s',
-                }}
-                whileHover={{ color: 'var(--color-text)' }}
-                whileTap={{ scale: 0.95 }}
+                className={`nav-link${isActive ? ' nav-link--active' : ''}`}
+                whileTap={{ scale: 0.96 }}
               >
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    style={{
-                      position: 'absolute', inset: 0, borderRadius: 10,
-                      background: 'rgba(255,255,255,0.02)',
-                      backdropFilter: 'blur(6px)',
-                      WebkitBackdropFilter: 'blur(6px)',
-                      border: '1px solid rgba(255,255,255,0.10)',
-                      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)',
-                    }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                  />
-                )}
-                <span style={{ position: 'relative', zIndex: 1, textShadow: '0 1px 3px rgba(0,0,0,0.40), 0 0 10px rgba(0,0,0,0.25)' }}>{link.label}</span>
+                {link.label}
               </motion.button>
             )
           })}
-
-          {/* Theme toggle */}
-          <NavIconButton onClick={() => setDarkMode(p => !p)} aria-label="Toggle theme">
-            {darkMode ? <HiSun size={17} /> : <HiMoon size={17} />}
-          </NavIconButton>
 
           {/* Hamburger dropdown */}
           <div ref={hamburgerRef} style={{ position: 'relative' }}>
@@ -255,9 +222,9 @@ export default function Navbar() {
                   }}
                 >
                   {/* Dropdown glass layers */}
-                  <div style={{ position: 'absolute', inset: 0, borderRadius: 18, backdropFilter: 'blur(6px) saturate(200%)', WebkitBackdropFilter: 'blur(6px) saturate(200%)', pointerEvents: 'none' }} />
-                  <div style={{ position: 'absolute', inset: 0, borderRadius: 18, background: 'rgba(255,255,255,0.02)', pointerEvents: 'none' }} />
-                  <div style={{ position: 'absolute', inset: 0, border: '1px solid transparent', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.12) 100%)', backgroundOrigin: 'border-box', WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'destination-out', maskComposite: 'exclude', borderRadius: 18, pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: 18, backdropFilter: 'blur(16px) saturate(200%)', WebkitBackdropFilter: 'blur(16px) saturate(200%)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: 18, background: 'rgba(12, 13, 15, 0.94)', pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', inset: 0, border: '1px solid transparent', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.10) 100%)', backgroundOrigin: 'border-box', WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'destination-out', maskComposite: 'exclude', borderRadius: 18, pointerEvents: 'none' }} />
                   <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: 1, borderRadius: 18, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.60) 50%, transparent)', pointerEvents: 'none' }} />
                   <div style={{ position: 'absolute', inset: 0, boxShadow: '0 20px 60px rgba(0,0,0,0.45)', borderRadius: 18, pointerEvents: 'none' }} />
 
@@ -269,16 +236,8 @@ export default function Navbar() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.15 }}
                         onClick={() => scrollTo(link.href)}
-                        style={{
-                          display: 'block', width: '100%', background: 'none', border: 'none',
-                          padding: '11px 16px', borderRadius: 10,
-                          color: 'var(--color-text-dim)', fontSize: 14, fontWeight: 500,
-                          textAlign: 'left', cursor: 'pointer',
-                          textShadow: '0 1px 3px rgba(0,0,0,0.40), 0 0 10px rgba(0,0,0,0.25)',
-                        }}
+                        className="nav-mobile-link"
                         whileTap={{ scale: 0.97 }}
-                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'var(--color-text)' }}
-                        onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--color-text-dim)' }}
                       >
                         {link.label}
                       </motion.button>
@@ -292,9 +251,6 @@ export default function Navbar() {
 
         {/* Mobile controls */}
         <div className="hamburger-group" style={{ display: 'none', alignItems: 'center', gap: 8 }}>
-          <NavIconButton onClick={() => setDarkMode(p => !p)} aria-label="Toggle theme">
-            {darkMode ? <HiSun size={18} /> : <HiMoon size={18} />}
-          </NavIconButton>
           <NavIconButton onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
             <HamburgerIcon open={menuOpen} />
           </NavIconButton>
@@ -315,9 +271,9 @@ export default function Navbar() {
               // overflow:hidden removed — was clipping mobile menu text at rounded corners
             }}
           >
-            <div style={{ position: 'absolute', inset: 0, borderRadius: 22, backdropFilter: 'blur(6px) saturate(200%)', WebkitBackdropFilter: 'blur(6px) saturate(200%)', pointerEvents: 'none' }} />
-            <div style={{ position: 'absolute', inset: 0, borderRadius: 22, background: 'rgba(255,255,255,0.02)', pointerEvents: 'none' }} />
-            <div style={{ position: 'absolute', inset: 0, border: '1px solid transparent', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.12) 100%)', backgroundOrigin: 'border-box', WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'destination-out', maskComposite: 'exclude', borderRadius: 22, pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', inset: 0, borderRadius: 22, backdropFilter: 'blur(16px) saturate(200%)', WebkitBackdropFilter: 'blur(16px) saturate(200%)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', inset: 0, borderRadius: 22, background: 'rgba(12, 13, 15, 0.94)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', inset: 0, border: '1px solid transparent', backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.10) 100%)', backgroundOrigin: 'border-box', WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'destination-out', maskComposite: 'exclude', borderRadius: 22, pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', top: 0, left: '8%', right: '8%', height: 1, borderRadius: 22, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.55) 50%, transparent)', pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', inset: 0, boxShadow: '0 24px 64px rgba(0,0,0,0.50)', borderRadius: 22, pointerEvents: 'none' }} />
 
@@ -331,28 +287,8 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.15 }}
                     onClick={() => scrollTo(link.href)}
-                    style={{
-                      display: 'block', width: '100%', border: 'none',
-                      padding: '13px 16px', borderRadius: 12,
-                      background: isActive ? 'rgba(99,102,241,0.14)' : 'none',
-                      color: isActive ? 'var(--color-text)' : 'var(--color-text-dim)',
-                      fontSize: 15, fontWeight: isActive ? 600 : 500,
-                      textAlign: 'left', cursor: 'pointer', minHeight: 44,
-                      textShadow: '0 1px 3px rgba(0,0,0,0.40), 0 0 10px rgba(0,0,0,0.25)',
-                    }}
+                    className={`nav-mobile-link${isActive ? ' nav-mobile-link--active' : ''}`}
                     whileTap={{ scale: 0.97 }}
-                    onMouseEnter={e => {
-                      if (!isActive) {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.07)'
-                        e.currentTarget.style.color = 'var(--color-text)'
-                      }
-                    }}
-                    onMouseLeave={e => {
-                      if (!isActive) {
-                        e.currentTarget.style.background = 'none'
-                        e.currentTarget.style.color = 'var(--color-text-dim)'
-                      }
-                    }}
                   >
                     {link.label}
                   </motion.button>
@@ -377,23 +313,10 @@ const NavIconButton = memo(function NavIconButton({ children, onClick, ...rest }
   return (
     <motion.button
       onClick={onClick}
-      whileHover={{ scale: 1.08 }}
-      whileTap={{ scale: 0.92 }}
-      style={{
-        background: 'rgba(255,255,255,0.02)',
-        border: '1px solid rgba(255,255,255,0.10)',
-        borderRadius: 11,
-        padding: 9,
-        color: 'var(--color-text)',
-        cursor: 'pointer',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        minWidth: 38, minHeight: 38,
-        backdropFilter: 'blur(6px)',
-        WebkitBackdropFilter: 'blur(6px)',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 8px rgba(0,0,0,0.18)',
-        marginLeft: 4,
-        textShadow: '0 1px 3px rgba(0,0,0,0.40), 0 0 10px rgba(0,0,0,0.25)',
-      }}
+      className="nav-icon-btn"
+      whileHover={{ scale: 1.06 }}
+      whileTap={{ scale: 0.94 }}
+      style={{ marginLeft: 4 }}
       {...rest}
     >
       {children}

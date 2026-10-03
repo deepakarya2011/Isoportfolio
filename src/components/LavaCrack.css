@@ -1,0 +1,90 @@
+/* ── LavaCrack — the EXISTING /bg/lavabg.webp is the ONLY crack source ─────
+   Nothing procedural: no canvas, no generated geometry, no drawing at all.
+   One fixed wrapper (.lava-background — z 0, pointer-events: none) holds four
+   divs that all share the SAME cached lava image:
+
+     .lava-base    resting state — opacity 0.045, always on (spec: 0.03–0.06)
+     .lava-hover   cursor reveal — a soft radial-gradient mask follows
+                   --mx/--my; plain opacity transition fades in fast, out slow
+     .lava-wave ×2 click wave — an invisible expanding ring mask; JS only
+                   moves --wi/--wr/--wo + opacity, then the rAF loop sleeps
+
+   The wrapper uses mix-blend-mode: screen, so only the BRIGHT ORANGE CRACKS
+   can change the page: black rock is a mathematical no-op (the circular mask
+   itself is never visible), the charcoal background is never tinted orange,
+   and the image can never show at full strength.
+
+   Stack: charcoal (−3) < glow/aurora (−2) < grain (−1) < lava (0) < content
+   (main z 1, navbar z 1000, footer later in DOM). All listeners are passive,
+   nothing is preventDefault-ed — links, forms and scrolling keep working.
+
+   Tuning: .lava-base opacity = resting visibility · .lava-hover.is-on
+   opacity = hover peak (≈0.23 combined with base, spec max 0.25) ·
+   --mr = reveal radius (150px) · REVEAL / WV in LavaCrack.jsx = wave strength. */
+.lava-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.lava-background > div {
+  position: absolute;
+  inset: 0;
+  background-image: url('/bg/lavabg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Normal state — the lava image is almost completely invisible */
+.lava-base {
+  opacity: 0.015;
+}
+
+/* Hover — only the existing cracks near the cursor brighten. The mask is a
+   soft radial gradient (no hard edge, no visible circle), and because the
+   image is black rock, only its orange cracks read through the screen blend. */
+.lava-hover {
+  --mx: -600px;
+  --my: -600px;
+  --mr: 150px;
+  opacity: 0;
+  transition: opacity 1.1s ease; /* cursor leaves → slowly back to invisible */
+  -webkit-mask-image: radial-gradient(circle var(--mr) at var(--mx) var(--my),
+      rgb(0 0 0) 0%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(circle var(--mr) at var(--mx) var(--my),
+      rgb(0 0 0) 0%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.lava-hover.is-on {
+  opacity: 0.5;
+  transition: opacity 0.25s ease; /* cursor arrives → quick, subtle light-up */
+}
+
+/* Click wave — never drawn, never a visible ring: an expanding band-shaped
+   mask (transparent → opaque at the wavefront → transparent) that reveals
+   only the existing image it crosses. JS guarantees wi ≤ wr ≤ wo. */
+.lava-wave {
+  --wx: -600px;
+  --wy: -600px;
+  --wi: 0px;
+  --wr: 0px;
+  --wo: 0px;
+  opacity: 0;
+  -webkit-mask-image: radial-gradient(circle at var(--wx) var(--wy),
+      rgba(0, 0, 0, 0) var(--wi),
+      rgb(0 0 0) var(--wr),
+      rgba(0, 0, 0, 0) var(--wo));
+  mask-image: radial-gradient(circle at var(--wx) var(--wy),
+      rgba(0, 0, 0, 0) var(--wi),
+      rgb(0 0 0) var(--wr),
+      rgba(0, 0, 0, 0) var(--wo));
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+

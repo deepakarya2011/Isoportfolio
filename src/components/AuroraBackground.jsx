@@ -9,6 +9,7 @@ export default function AuroraBackground({ children }) {
     const ctx = canvas.getContext('2d')
     let animId
     let t = 0
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const resize = () => {
       if (!canvas) return
@@ -24,11 +25,12 @@ export default function AuroraBackground({ children }) {
       const h = canvas.height
       ctx.clearRect(0, 0, w, h)
 
+      // Neutral, colour-free light — no blue / purple atmosphere
       const colours = [
-        [99, 102, 241],
-        [6, 182, 212],
-        [168, 85, 247],
-        [99, 102, 241],
+        [132, 134, 138],
+        [116, 118, 122],
+        [142, 144, 148],
+        [124, 126, 130],
       ]
 
       colours.forEach(([r, g, b], i) => {
@@ -49,10 +51,10 @@ export default function AuroraBackground({ children }) {
         )
         // Check for light theme to reduce intensity
         const isLight = document.documentElement.getAttribute('data-theme') === 'light'
-        const intensity = isLight ? 0.15 : 0.25
-        const midIntensity = isLight ? 0.06 : 0.12
-        const endIntensity = isLight ? 0.01 : 0.02
-        
+        const intensity = isLight ? 0.035 : 0.055
+        const midIntensity = isLight ? 0.014 : 0.022
+        const endIntensity = isLight ? 0.004 : 0.007
+
         gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${intensity})`)
         gradient.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${midIntensity})`)
         gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, ${endIntensity})`)
@@ -60,7 +62,7 @@ export default function AuroraBackground({ children }) {
         ctx.fillRect(0, 0, w, h)
       })
 
-      animId = requestAnimationFrame(draw)
+      if (!reducedMotion) animId = requestAnimationFrame(draw)
     }
     draw()
 
@@ -95,7 +97,7 @@ export default function AuroraBackground({ children }) {
           inset: 0,
           zIndex: -1,
           pointerEvents: 'none',
-          opacity: 0.015,
+          opacity: 0.03,
           backgroundImage:
             'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
           backgroundRepeat: 'repeat',

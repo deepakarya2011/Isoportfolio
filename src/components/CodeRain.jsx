@@ -41,20 +41,21 @@ function CodeRain() {
   const getRandomColor = useCallback(() => {
     const isLight = document.documentElement.getAttribute('data-theme') === 'light'
     
-    // Dark mode colors (liquid glass - subtle, translucent)
+    // Dark mode colours — quiet neutral greys with a few orange accents
     const darkColors = [
-      { r: 220, g: 230, b: 255 },   // light blue-white
-      { r: 190, g: 200, b: 255 },   // soft blue
-      { r: 170, g: 190, b: 255 },   // pale blue
-      { r: 200, g: 180, b: 255 },   // lavender
+      { r: 196, g: 198, b: 202 },   // soft grey
+      { r: 158, g: 160, b: 164 },   // mid grey
+      { r: 214, g: 216, b: 220 },   // pale grey
+      { r: 230, g: 232, b: 236 },   // light neutral
+      { r: 255, g: 138, b: 0 },     // orange accent (rare)
     ]
     
-    // Light mode colors (liquid glass - subtle, translucent)
+    // Light mode colors (subtle, translucent)
     const lightColors = [
-      { r: 40, g: 50, b: 80 },   // dark blue-gray
-      { r: 50, g: 60, b: 95 },   // muted blue
-      { r: 60, g: 70, b: 100 },  // slate blue
-      { r: 45, g: 55, b: 85 },   // dark slate
+      { r: 150, g: 152, b: 156 },  // muted grey
+      { r: 120, g: 122, b: 126 },  // deep grey
+      { r: 170, g: 172, b: 176 },  // soft grey
+      { r: 138, g: 140, b: 144 },  // neutral slate
     ]
     
     const colors = isLight ? lightColors : darkColors
@@ -171,7 +172,7 @@ function CodeRain() {
 
     const getTrailColor = () => {
       const isLight = document.documentElement.getAttribute('data-theme') === 'light'
-      return isLight ? 'rgba(248, 249, 252, 0.008)' : 'rgba(11, 15, 25, 0.008)'
+      return isLight ? 'rgba(245, 245, 245, 0.008)' : 'rgba(11, 12, 14, 0.008)'
     }
 
     const draw = (timestamp) => {

@@ -19,30 +19,11 @@ export default function Certificates() {
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={fadeUp}
-          style={{ textAlign: 'center', marginBottom: 72 }}
+          className="section-head"
         >
-          <span
-            style={{
-              display: 'inline-block',
-              padding: '6px 18px',
-              borderRadius: 'var(--radius-pill)',
-              background: 'rgba(99,102,241,0.12)',
-              border: '1px solid rgba(99,102,241,0.25)',
-              color: 'var(--color-primary-soft)',
-              fontSize: 13,
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: 2,
-              marginBottom: 16,
-            }}
-          >
-            Certificates
-          </span>
-          <h2
-            className="gradientText"
-            style={{ fontSize: 'clamp(36px, 4.5vw, 52px)', fontWeight: 700 }}
-          >
-            Certifications
+          <span className="section-label">Certificates</span>
+          <h2 className="section-title">
+            <span className="text-orange">Certifications</span>
           </h2>
         </motion.div>
 
@@ -71,18 +52,13 @@ export default function Certificates() {
                className="liquidGlassCard"
              >
               <div
+                className="icon-tile"
                 style={{
                   width: 52,
                   height: 52,
                   borderRadius: 16,
-                  background: 'rgba(99,102,241,0.12)',
-                  border: '1px solid rgba(99,102,241,0.2)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
                   margin: '0 auto 16px',
                   fontSize: 24,
-                  color: 'var(--color-primary-soft)',
                 }}
               >
                 <HiOutlineDocumentText />

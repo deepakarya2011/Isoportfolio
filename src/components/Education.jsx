@@ -19,30 +19,11 @@ export default function Education() {
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={fadeUp}
-          style={{ textAlign: 'center', marginBottom: 72 }}
+          className="section-head"
         >
-          <span
-            style={{
-              display: 'inline-block',
-              padding: '6px 18px',
-              borderRadius: 'var(--radius-pill)',
-              background: 'rgba(6,182,212,0.12)',
-              border: '1px solid rgba(6,182,212,0.25)',
-              color: 'var(--color-accent)',
-              fontSize: 13,
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: 2,
-              marginBottom: 16,
-            }}
-          >
-            Education
-          </span>
-          <h2
-            className="gradientText"
-            style={{ fontSize: 'clamp(36px, 4.5vw, 52px)', fontWeight: 700 }}
-          >
-            Academic Background
+          <span className="section-label">Education</span>
+          <h2 className="section-title">
+            Academic <span className="text-orange">Background</span>
           </h2>
         </motion.div>
 
@@ -56,8 +37,8 @@ export default function Education() {
               top: 0,
               bottom: 0,
               width: 2,
-              background: 'linear-gradient(180deg, var(--color-primary), var(--color-accent), transparent)',
-              opacity: 0.5,
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06) 70%, transparent)',
+              opacity: 1,
             }}
             className="education-line"
           />

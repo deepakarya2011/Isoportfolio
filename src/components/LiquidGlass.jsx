@@ -28,8 +28,9 @@ export function LiquidGlass({
   blur = 6,
   tint = 'rgba(255,255,255,0.02)',
   tintHover = 'rgba(255,255,255,0.01)',
-  glow = null,           // accent color for ambient glow e.g. '#6366f1'
+  glow = null,           // accent color for ambient glow e.g. '#FF8A00'
   intensity = 1,         // 0–2, scales all effects
+  sheen = true,          // false → hides white light layers (L4 rim, L5 top band, L7 specular)
   as = 'div',
   onClick,
   href,
@@ -166,56 +167,60 @@ export function LiquidGlass({
         />
       )}
 
-      {/* ── L4: Edge highlight border (rim light) ── */}
-      <motion.div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: 0,
-          borderRadius: radius,
-          border: '1px solid transparent',
-          backgroundImage: `
-            linear-gradient(
-              ${hovered ? '145deg' : '135deg'},
-              rgba(255,255,255,${hovered ? 0.35 : 0.18}) 0%,
-              rgba(255,255,255,0.06) 40%,
-              rgba(255,255,255,0.02) 60%,
-              rgba(255,255,255,${hovered ? 0.22 : 0.10}) 100%
-            )
-          `,
-          backgroundOrigin: 'border-box',
-          WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
-          WebkitMaskComposite: 'destination-out',
-          maskComposite: 'exclude',
-          zIndex: 3,
-          pointerEvents: 'none',
-          transition: 'background-image 0.3s ease',
-        }}
-      />
+      {/* ── L4: Edge highlight border (rim light) — white sheen, skippable ── */}
+      {sheen && (
+        <motion.div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: radius,
+            border: '1px solid transparent',
+            backgroundImage: `
+              linear-gradient(
+                ${hovered ? '145deg' : '135deg'},
+                rgba(255,255,255,${hovered ? 0.35 : 0.18}) 0%,
+                rgba(255,255,255,0.06) 40%,
+                rgba(255,255,255,0.02) 60%,
+                rgba(255,255,255,${hovered ? 0.22 : 0.10}) 100%
+              )
+            `,
+            backgroundOrigin: 'border-box',
+            WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'destination-out',
+            maskComposite: 'exclude',
+            zIndex: 3,
+            pointerEvents: 'none',
+            transition: 'background-image 0.3s ease',
+          }}
+        />
+      )}
 
-      {/* ── L5: Top-edge inner reflection band ── */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: '8%',
-          right: '8%',
-          height: 1,
-          borderRadius: '50%',
-          background: `linear-gradient(90deg,
-            transparent 0%,
-            rgba(255,255,255,${hovered ? 0.55 : 0.30}) 30%,
-            rgba(255,255,255,${hovered ? 0.70 : 0.45}) 50%,
-            rgba(255,255,255,${hovered ? 0.55 : 0.30}) 70%,
-            transparent 100%
-          )`,
-          zIndex: 4,
-          pointerEvents: 'none',
-          transition: 'background 0.3s ease',
-          filter: 'blur(0.5px)',
-        }}
-      />
+      {/* ── L5: Top-edge inner reflection band — white sheen, skippable ── */}
+      {sheen && (
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: '8%',
+            right: '8%',
+            height: 1,
+            borderRadius: '50%',
+            background: `linear-gradient(90deg,
+              transparent 0%,
+              rgba(255,255,255,${hovered ? 0.55 : 0.30}) 30%,
+              rgba(255,255,255,${hovered ? 0.70 : 0.45}) 50%,
+              rgba(255,255,255,${hovered ? 0.55 : 0.30}) 70%,
+              transparent 100%
+            )`,
+            zIndex: 4,
+            pointerEvents: 'none',
+            transition: 'background 0.3s ease',
+            filter: 'blur(0.5px)',
+          }}
+        />
+      )}
 
       {/* ── L6: Chromatic aberration fringe (subtle RGB split on edges) ── */}
       <div
@@ -226,29 +231,31 @@ export function LiquidGlass({
           borderRadius: radius + 1,
           background: 'transparent',
           boxShadow: hovered
-            ? `inset 1px 0 0 rgba(99,102,241,0.25), inset -1px 0 0 rgba(6,182,212,0.20), inset 0 1px 0 rgba(168,85,247,0.15)`
-            : `inset 1px 0 0 rgba(99,102,241,0.10), inset -1px 0 0 rgba(6,182,212,0.08)`,
+            ? `inset 1px 0 0 rgba(255,138,0,0.30), inset -1px 0 0 rgba(255, 157, 26,0.22), inset 0 1px 0 rgba(255,157,26,0.18)`
+            : `inset 1px 0 0 rgba(255,138,0,0.12), inset -1px 0 0 rgba(255,157,26,0.08)`,
           zIndex: 5,
           pointerEvents: 'none',
           transition: 'box-shadow 0.4s ease',
         }}
       />
 
-      {/* ── L7: Cursor-reactive specular highlight ── */}
-      <motion.div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: 0,
-          borderRadius: radius,
-          background: 'transparent',
-          backgroundImage: `radial-gradient(ellipse 55% 40% at ${specX} ${specY}, rgba(255,255,255,${0.13 * intensity}) 0%, transparent 70%)`,
-          zIndex: 6,
-          pointerEvents: 'none',
-          opacity: hovered ? 1 : 0.4,
-          transition: 'opacity 0.3s ease',
-        }}
-      />
+      {/* ── L7: Cursor-reactive specular highlight — white sheen, skippable ── */}
+      {sheen && (
+        <motion.div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: radius,
+            background: 'transparent',
+            backgroundImage: `radial-gradient(ellipse 55% 40% at ${specX} ${specY}, rgba(255,255,255,${0.13 * intensity}) 0%, transparent 70%)`,
+            zIndex: 6,
+            pointerEvents: 'none',
+            opacity: hovered ? 1 : 0.4,
+            transition: 'opacity 0.3s ease',
+          }}
+        />
+      )}
 
       {/* ── L8: Drop shadow + contact shadow ── */}
       <div
@@ -283,82 +290,53 @@ export function LiquidGlass({
 }
 
 /**
- * GlassButton — Apple-style floating glass capsule button
+ * GlassButton — orange-accented capsule button
+ * variant: 'primary' | 'secondary' | 'ghost' ('accent' alias for secondary)
  */
 export const GlassButton = memo(function GlassButton({
   children,
   onClick,
   href,
-  variant = 'ghost', // 'ghost' | 'primary' | 'accent'
+  variant = 'ghost',
   style = {},
+  className = '',
   ...rest
 }) {
-  const variants = {
-    ghost: {
-      tint: 'rgba(255,255,255,0.02)',
-      tintHover: 'rgba(255,255,255,0.01)',
-      glow: null,
-    },
-    primary: {
-      tint: 'rgba(99,102,241,0.05)',
-      tintHover: 'rgba(99,102,241,0.08)',
-      glow: '#6366f1',
-    },
-    accent: {
-      tint: 'rgba(6,182,212,0.04)',
-      tintHover: 'rgba(6,182,212,0.07)',
-      glow: '#06b6d4',
-    },
-    purple: {
-      tint: 'rgba(168,85,247,0.04)',
-      tintHover: 'rgba(168,85,247,0.07)',
-      glow: '#a855f7',
-    },
+  const VARIANTS = {
+    primary: 'btn--primary',
+    secondary: 'btn--secondary',
+    accent: 'btn--secondary',
+    ghost: 'btn--ghost',
   }
 
-  const v = variants[variant] || variants.ghost
+  const classes = `btn ${VARIANTS[variant] || VARIANTS.ghost}${className ? ` ${className}` : ''}`
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={rest.target ?? '_blank'}
+        rel={rest.rel ?? 'noopener noreferrer'}
+        onClick={onClick}
+        className={classes}
+        style={style}
+        {...rest}
+      >
+        {children}
+      </a>
+    )
+  }
 
   return (
-    <LiquidGlass
-      as="button"
-      href={href}
+    <button
+      type={rest.type ?? 'button'}
       onClick={onClick}
-      radius={999}
-      blur={6}
-      tint={v.tint}
-      tintHover={v.tintHover}
-      glow={v.glow}
-      intensity={1.2}
-      contentStyle={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 8,
-      }}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        // Generous horizontal padding so text never touches the pill curve
-        paddingTop: 12,
-        paddingBottom: 12,
-        paddingLeft: 28,
-        paddingRight: 28,
-        border: 'none',
-        color: 'var(--color-text)',
-        fontSize: 14,
-        fontWeight: 600,
-        fontFamily: 'var(--font-sans)',
-        lineHeight: 1,
-        textShadow: '0 1px 3px rgba(0,0,0,0.35), 0 0 12px rgba(0,0,0,0.20)',
-        minHeight: 44,
-        minWidth: 44,
-        ...style,
-      }}
+      className={classes}
+      style={style}
       {...rest}
     >
       {children}
-    </LiquidGlass>
+    </button>
   )
 })
 
@@ -383,25 +361,17 @@ export const GlassCard = memo(function GlassCard({ children, style = {}, radius 
 })
 
 /**
- * GlassTag — Small pill label
+ * GlassTag — Small pill label. Pass `color` for an orange-tinted pill,
+ * omit it for a neutral chip with an orange hover.
  */
-export const GlassTag = memo(function GlassTag({ children, color = '#6366f1', style = {} }) {
+export const GlassTag = memo(function GlassTag({ children, color, style = {}, className = '' }) {
+  const tinted = Boolean(color)
+
   return (
     <span
+      className={`tag${tinted ? ' tag--orange' : ''}${className ? ` ${className}` : ''}`}
       style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        padding: '4px 12px',
-        borderRadius: 999,
-        background: `${color}08`,
-        border: `1px solid ${color}20`,
-        backdropFilter: 'blur(6px)',
-        WebkitBackdropFilter: 'blur(6px)',
-        fontSize: 12,
-        fontWeight: 600,
-        color: 'var(--color-text)',
-        textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
-        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.10), 0 2px 8px rgba(0,0,0,0.15)`,
+        ...(tinted ? { background: `${color}14`, borderColor: `${color}3D` } : null),
         ...style,
       }}
     >

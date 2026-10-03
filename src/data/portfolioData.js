@@ -6,11 +6,12 @@ export const PROFILE = {
   roles: [
     'Full Stack Developer',
     'MERN Stack Developer',
+    'Android & iOS App Developer',
     'AI & ML Student',
     'Problem Solver',
   ],
   description:
-    'Passionate Full Stack Developer with experience building modern web applications using React.js, Node.js, Express.js and MongoDB. Currently pursuing B.Tech in Artificial Intelligence & Machine Learning while developing real-world projects and continuously improving development skills.',
+    'Passionate Full Stack Developer with experience building modern web and mobile applications using React.js, React Native, Node.js, Express.js, MongoDB, MySQL and Python. Currently pursuing B.Tech in Artificial Intelligence & Machine Learning while developing real-world projects and continuously improving development skills.',
   email: 'deepakarya20112000@gmail.com',
   location: 'Lucknow, Uttar Pradesh, India',
   resumeUrl: '/Resume/deepak-arya.pdf',
@@ -44,15 +45,19 @@ export const HAMBURGER_LINKS = [
 
 export const HERO_TECH_ICONS = [
   'react',
+  'reactnative',
   'node',
   'mongodb',
   'javascript',
+  'python',
+  'mysql',
   'git',
   'github',
 ]
 
 export const HIGHLIGHTS = [
   { title: 'Full Stack Development', icon: 'layers' },
+  { title: 'Android & iOS App Development', icon: 'android' },
   { title: 'REST API Development', icon: 'api' },
   { title: 'Database Design', icon: 'database' },
   { title: 'Responsive UI Design', icon: 'device' },
@@ -65,6 +70,7 @@ export const SKILL_GROUPS = [
     category: 'Frontend',
     skills: [
       { name: 'React.js', icon: 'react' },
+      { name: 'React Native', icon: 'reactnative' },
       { name: 'JavaScript', icon: 'javascript' },
       { name: 'HTML5', icon: 'html5' },
       { name: 'CSS3', icon: 'css3' },
@@ -77,6 +83,7 @@ export const SKILL_GROUPS = [
     skills: [
       { name: 'Node.js', icon: 'node' },
       { name: 'Express.js', icon: 'express' },
+      { name: 'Python', icon: 'python' },
       { name: 'REST APIs', icon: 'api' },
     ],
   },
@@ -84,9 +91,19 @@ export const SKILL_GROUPS = [
     category: 'Database',
     skills: [
       { name: 'MongoDB', icon: 'mongodb' },
+      { name: 'MySQL', icon: 'mysql' },
       { name: 'Mongoose', icon: 'database' },
       { name: 'MongoDB Atlas', icon: 'database' },
       { name: 'SQL', icon: 'database' },
+    ],
+  },
+  {
+    category: 'Mobile',
+    skills: [
+      { name: 'React Native', icon: 'reactnative' },
+      { name: 'Android', icon: 'android' },
+      { name: 'iOS', icon: 'ios' },
+      { name: 'Cross-Platform Apps', icon: 'device' },
     ],
   },
   {
@@ -120,7 +137,7 @@ export const PROJECTS = [
     tech: ['React.js', 'Node.js', 'Socket.IO', 'MongoDB'],
     github: 'https://github.com/deepakarya2011',
     demo: 'https://flixerchat.vercel.app/',
-    accent: '#6366F1',
+    accent: '#FF8A00',
     thumbnail: '/Project thumbnails/Real-Time Chat Application.webp',
   },
   {
@@ -131,7 +148,7 @@ export const PROJECTS = [
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
     github: 'https://github.com/deepakarya2011',
     demo: 'https://careerconnectfrontend.vercel.app/',
-    accent: '#06B6D4',
+    accent: '#FF9D1A',
     thumbnail: '/Project thumbnails/CareerConnect Job Portal.webp',
   },
   {
@@ -142,7 +159,7 @@ export const PROJECTS = [
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
     github: 'https://github.com/deepakarya2011',
     demo: 'https://aryatodolist.vercel.app/',
-    accent: '#A855F7',
+    accent: '#FF9D1A',
     thumbnail: '/Project thumbnails/TaskFlow Manager.webp',
   },
   {
@@ -153,7 +170,7 @@ export const PROJECTS = [
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
     github: 'https://github.com/deepakarya2011',
     demo: 'https://expense-tracker-app-ruddy-ten.vercel.app/',
-    accent: '#6366F1',
+    accent: '#FF8A00',
     thumbnail: '/Project thumbnails/Expense Tracker Pro.webp',
   },
   {
@@ -164,7 +181,7 @@ export const PROJECTS = [
     tech: ['React.js', 'JavaScript', 'CSS'],
     github: 'https://github.com/deepakarya2011',
     demo: '#',
-    accent: '#06B6D4',
+    accent: '#FF9D1A',
     thumbnail: '/Project thumbnails/AI Text Utility Tool.webp',
   },
   {
@@ -175,7 +192,7 @@ export const PROJECTS = [
     tech: ['Python', 'JavaScript', 'HTML', 'CSS'],
     github: 'https://github.com/deepakarya2011',
     demo: '#',
-    accent: '#A855F7',
+    accent: '#FF9D1A',
     thumbnail: '/Project thumbnails/QR Code Generator.webp',
   },
 ]
@@ -220,7 +237,7 @@ export const EXPERIENCE = [
     id: 'mr-rishi-cms',
     role: 'Freelance Full Stack Developer',
     company: 'Mr.Rishi (YouTube Creator)',
-    duration: 'May 2026 – June 2026',
+    duration: 'March 2026 – Aug 2026',
     employmentType: 'Freelance / Contract',
     status: 'Completed',
     statusIcon: '✔',

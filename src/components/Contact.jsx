@@ -4,8 +4,7 @@ import emailjs from '@emailjs/browser'
 import { PROFILE, SOCIAL_LINKS, EMAILJS_CONFIG } from '../data/portfolioData'
 import { FiGithub, FiLinkedin, FiGlobe, FiMail, FiMapPin } from 'react-icons/fi'
 import { HiPaperAirplane } from 'react-icons/hi'
-import { LiquidGlass, GlassCard, GlassButton } from './LiquidGlass'
-
+import { GlassButton } from './LiquidGlass'
 const fadeUp = {
   hidden: { y: 40 },
   visible: (i = 0) => ({
@@ -14,24 +13,7 @@ const fadeUp = {
   }),
 }
 
-const inputStyle = {
-  width: '100%',
-  padding: '14px 18px',
-  borderRadius: 14,
-  background: 'rgba(255,255,255,0.02)',
-  border: '1px solid rgba(255,255,255,0.10)',
-  backdropFilter: 'blur(6px)',
-  WebkitBackdropFilter: 'blur(6px)',
-  fontSize: 14,
-  color: 'var(--color-text)',
-  caretColor: 'var(--color-text)',
-  outline: 'none',
-  boxSizing: 'border-box',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)',
-  transition: 'border-color 0.25s, box-shadow 0.25s',
-  fontFamily: 'var(--font-sans)',
-  textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)',
-}
+// Form fields use the shared `.contact-input` styles defined in index.css
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
@@ -58,17 +40,11 @@ export default function Contact() {
           initial="hidden" whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={fadeUp}
-          style={{ textAlign: 'center', marginBottom: 72 }}
+          className="section-head"
         >
-          <span style={{
-            display: 'inline-block', padding: '6px 18px',
-            borderRadius: 'var(--radius-pill)',
-            background: 'rgba(6,182,212,0.12)', border: '1px solid rgba(6,182,212,0.25)',
-            color: 'var(--color-accent)', fontSize: 13, fontWeight: 600,
-            textTransform: 'uppercase', letterSpacing: 2, marginBottom: 16,
-          }}>Contact</span>
-          <h2 className="gradientText" style={{ fontSize: 'clamp(36px, 4.5vw, 52px)', fontWeight: 700 }}>
-            Get In Touch
+          <span className="section-label">Contact</span>
+          <h2 className="section-title">
+            Get In <span className="text-orange">Touch</span>
           </h2>
         </motion.div>
 
@@ -78,9 +54,9 @@ export default function Contact() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }} variants={fadeUp} custom={0}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {/* Email card */}
-              <LiquidGlass radius={18} blur={6} tint="rgba(255,255,255,0.02)" tintHover="rgba(255,255,255,0.01)" glow="#6366f1" intensity={0.9} style={{ padding: '18px 20px' }}>
+              <div className="card card--interactive" style={{ padding: '18px 20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 14, background: 'rgba(99,102,241,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: 'var(--color-primary-soft)', flexShrink: 0, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)' }}>
+                  <div className="icon-tile" style={{ width: 44, height: 44, fontSize: 20 }}>
                     <FiMail />
                   </div>
                   <div>
@@ -90,12 +66,12 @@ export default function Contact() {
                     </a>
                   </div>
                 </div>
-              </LiquidGlass>
+              </div>
 
               {/* Location card */}
-              <LiquidGlass radius={18} blur={6} tint="rgba(255,255,255,0.02)" tintHover="rgba(255,255,255,0.01)" glow="#a855f7" intensity={0.9} style={{ padding: '18px 20px' }}>
+              <div className="card card--interactive" style={{ padding: '18px 20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 14, background: 'rgba(168,85,247,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: 'var(--color-purple)', flexShrink: 0, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15)' }}>
+                  <div className="icon-tile" style={{ width: 44, height: 44, fontSize: 20 }}>
                     <FiMapPin />
                   </div>
                   <div>
@@ -103,73 +79,45 @@ export default function Contact() {
                     <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-text)' }}>{PROFILE.location}</span>
                   </div>
                 </div>
-              </LiquidGlass>
+              </div>
             </div>
 
             {/* Social links */}
             <div style={{ display: 'flex', gap: 12, marginTop: 24 }}>
               {[
-                { href: SOCIAL_LINKS.github, icon: <FiGithub size={20} />, glow: '#6366f1' },
-                { href: SOCIAL_LINKS.linkedin, icon: <FiLinkedin size={20} />, glow: '#06b6d4' },
-                { href: SOCIAL_LINKS.portfolio, icon: <FiGlobe size={20} />, glow: '#a855f7' },
-              ].map(({ href, icon, glow }, i) => (
-                <LiquidGlass
-                  key={i}
-                  as="a"
+                { href: SOCIAL_LINKS.github, icon: <FiGithub size={20} />, label: 'GitHub' },
+                { href: SOCIAL_LINKS.linkedin, icon: <FiLinkedin size={20} />, label: 'LinkedIn' },
+                { href: SOCIAL_LINKS.portfolio, icon: <FiGlobe size={20} />, label: 'Portfolio' },
+              ].map(({ href, icon, label }) => (
+                <a
+                  key={label}
                   href={href}
-                  radius={14}
-                  blur={6}
-                  tint="rgba(255,255,255,0.02)"
-                  tintHover="rgba(255,255,255,0.01)"
-                  glow={glow}
-                  intensity={1}
-                  style={{ width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text)', textShadow: '0 1px 2px rgba(0,0,0,0.40), 0 0 8px rgba(0,0,0,0.25)' }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                  aria-label={label}
                 >
                   {icon}
-                </LiquidGlass>
+                </a>
               ))}
             </div>
           </motion.div>
 
           {/* Right — form */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }} variants={fadeUp} custom={1}>
-            <GlassCard glow="#06b6d4" blur={6} style={{ padding: '36px 32px' }}>
+            <div className="card" style={{ padding: '36px 32px' }}>
               <form ref={formRef} onSubmit={handleSubmit} className="contact-form" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }} className="contact-form-grid">
-                  <input type="text" name="name" placeholder="Your Name" required style={inputStyle}
-                    onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
-                    onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.10)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
-                  />
-                  <input type="email" name="email" placeholder="Your Email" required style={inputStyle}
-                    onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
-                    onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
-                  />
+                  <input type="text" name="name" placeholder="Your Name" required className="contact-input" />
+                  <input type="email" name="email" placeholder="Your Email" required className="contact-input" />
                 </div>
-                <input type="text" name="title" placeholder="Subject" required style={inputStyle}
-                  onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
-                  onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.10)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
-                />
-                <textarea name="message" placeholder="Your Message" rows={5} required
-                  style={{ ...inputStyle, resize: 'vertical' }}
-                  onFocus={e => { e.target.style.borderColor = 'rgba(99,102,241,0.55)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.10), 0 0 0 3px rgba(99,102,241,0.12)' }}
-                  onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.10)'; e.target.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(0,0,0,0.12)' }}
-                />
+                <input type="text" name="title" placeholder="Subject" required className="contact-input" />
+                <textarea name="message" placeholder="Your Message" rows={5} required className="contact-input" style={{ resize: 'vertical' }} />
                 <GlassButton
-                  as="button"
                   type="submit"
                   disabled={sending}
-                  variant="ghost"
-                  style={{
-                    width: '100%', padding: '14px 32px',
-                    fontSize: 15, color: 'var(--color-text)',
-                    opacity: sending ? 0.7 : 1,
-                    cursor: sending ? 'not-allowed' : 'pointer',
-                    background: 'rgba(255, 255, 255, 0.16)',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    backdropFilter: 'blur(6px)',
-                    WebkitBackdropFilter: 'blur(6px)',
-                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10), 0 4px 20px rgba(0,0,0,0.15)',
-                  }}
+                  variant="primary"
+                  style={{ width: '100%', padding: '15px 32px', fontSize: 15 }}
                 >
                   {sending ? 'Sending…' : sent ? 'Sent! ✓' : (
                     <>
@@ -181,7 +129,7 @@ export default function Contact() {
                   )}
                 </GlassButton>
               </form>
-            </GlassCard>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -201,8 +149,8 @@ export default function Contact() {
         }
         [data-theme="light"] .contact-form input::placeholder,
         [data-theme="light"] .contact-form textarea::placeholder {
-          color: #0b0f19;
-          opacity: 0.6;
+          color: #B0B3B8;
+          opacity: 0.7;
         }
       `}</style>
     </section>
